@@ -1,0 +1,9 @@
+
+:root{
+  --swiper-navigation-color: '#000'
+}
+
+.swiper-button-next, .swiper-button-prev{
+  color: var(--swiper-navigation-color, #000);
+}
+

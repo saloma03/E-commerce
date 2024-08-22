@@ -1,0 +1,124 @@
+<section class="text-lg bg-gray-100 shadow-lg rounded-md p-2  my-5">
+  <h1 class="text-red-950 font-bold py-3" >Register Now:</h1>
+
+
+
+
+  <form class=" mx-auto" [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+    <div class="relative z-0 w-full mb-5 group py-3">
+      <input
+      [ngClass]="{
+        'border-b-green-500': !registerForm.get('name')?.errors && (registerForm.get('name')?.touched ||registerForm.get('name')?.dirty)
+      }"
+      type="text" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer" placeholder=" " required formControlName="name" />
+      <label for="name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
+      @if (registerForm.get('name')?.errors && (registerForm.get('name')?.touched ||registerForm.get('name')?.dirty)) {
+        <div class="mt-1 text-red-600 text-sm hover:text-red-800 ">
+          @if (registerForm.get('name')?.getError('required')) {
+            <p>your name is required</p>
+          }@else if(registerForm.get('name')?.getError('minlength')){
+            <p>name must be more than or equal to 3 char</p>
+          }
+          @else if(registerForm.get('name')?.getError('maxlength')){
+            <p>name must be less than or equal to 20 char</p>
+          }
+        </div>
+      }
+
+    </div>
+    <div class="relative z-0 w-full mb-5 group py-3">
+        <input
+        [ngClass]="{
+          'border-green-400': !registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty),
+
+          }"
+        type="email" name="floating_email"
+        id="floating_email"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer"
+        placeholder=" "
+        required
+        formControlName="email" />
+        <label
+        for="floating_email"
+        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+        Email address
+        </label>
+
+        @if (registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)) {
+          <div class="mt-1 text-red-600 hover:text-red-800 text-sm">
+              @if (registerForm.get('email')?.getError('required')) {
+                <p>your Email is required</p>
+              }@else if(registerForm.get('email')?.getError('email')){
+                <p>please enter valid email</p>
+              }
+          </div>
+        }
+    </div>
+
+
+    <div class="relative z-0 w-full mb-5 group py-3">
+      <input
+      [ngClass]="{
+        'border-b-green-500': !registerForm.get('phone')?.errors && (registerForm.get('phone')?.touched||registerForm.get('phone')?.dirty)
+      }"
+      type="tel"  name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer" placeholder=" " required formControlName="phone"  />
+      <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number (112-456-7890)</label>
+
+      @if (registerForm.get('phone')?.errors && (registerForm.get('phone')?.touched||registerForm.get('phone')?.dirty)) {
+        <div class="mt-1 text-red-600 hover:text-red-800 text-sm">
+          @if (registerForm.get('phone')?.getError('required')) {
+            <p>
+              your phone is required
+            </p>
+          }@else if(registerForm.get('phone')?.getError('pattern')){
+            <p>please enter a vaild egyption number</p>
+          }
+        </div>
+      }
+  </div>
+    <div class="grid md:grid-cols-2 md:gap-6">
+
+      <div class="relative z-0 w-full mb-5 group py-3">
+        <input
+        [ngClass]="{
+          'border-b-green-500': !registerForm.get('password')?.errors && (registerForm.get('password')?.touched||registerForm.get('password')?.dirty)
+        }"
+        type="password" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer" placeholder=" " required formControlName="password" />
+        <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+        @if (registerForm.get('password')?.errors && (registerForm.get('password')?.touched||registerForm.get('password')?.dirty)) {
+          <div class="mt-1 text-red-500 hover:text-red-800 text-sm">
+            @if (registerForm.get('password')?.getError('required')) {
+              <p>
+                password is required
+              </p>
+            }@else if(registerForm.get('password')?.getError('pattern')){
+              <p>password should be 6 char or more</p>
+            }
+          </div>
+        }
+    </div>
+    <div class="relative z-0 w-full mb-5 group py-3">
+        <input [ngClass]="{
+          'border-b-green-500': !registerForm.getError('mismatch') && (registerForm.get('rePassword')?.touched||registerForm.get('rePassword')?.dirty)
+        }"
+         type="password" name="repeat_password" id="floating_repeat_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer" placeholder=" " required formControlName="rePassword" />
+        <label for="floating_repeat_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm password</label>
+        @if (registerForm.getError('mismatch') && (registerForm.get('rePassword')?.touched||registerForm.get('rePassword')?.dirty))
+        {
+          <div class="mt-1 text-red-500 text-sm hover:text-red-800">
+            <p>Password confirmation is incorrect</p>
+          </div>
+        }
+    </div>
+    </div>
+    <button  [disabled]="registerForm.invalid || isLoading" type="submit" class="disabled:bg-gray-500 ms-auto block text-white bg-gray-900 hover:bg-red-950 focus:outline-none focus:ring-[rgba(69 ,10, 10,0.5 )] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-900 dark:hover:bg-red-900 dark:focus:ring-red-950">
+      Register
+      @if (isLoading ) {
+        <span><i class="fas fa-spin fa-spinner"></i></span>
+      }
+    </button>
+
+  </form>
+
+
+</section>

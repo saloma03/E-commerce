@@ -1,0 +1,23 @@
+<div class="w-10/12 mx-auto">
+  <app-title [title]="'categories'"></app-title>
+
+  <div class="py-5">
+    <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
+    autoplay = "true" loop ="true" initial-slide="5"
+    slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
+    coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
+    @for (category of categoryList; track $index)
+    {
+      <swiper-slide class="mb-5 shadow-lg">
+        <div class="border-4 shadow-lg border-gray-800 rounded-md h-full">
+          <img [src]="category.image" class="w-full h-full object-contain" alt="">
+          <span class=" text-gray-800 font-bold">{{category.name}}</span>
+        </div>
+
+      </swiper-slide>
+    }
+  </swiper-container>
+
+  </div>
+
+</div>
