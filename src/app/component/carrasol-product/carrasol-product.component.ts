@@ -1,7 +1,8 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Iproduct } from '../../core/interfaces/iproduct';
 import { ProductService } from '../../core/services/product.service';
 import { ProductComponent } from "../product/product.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-carrasol-product',
@@ -11,13 +12,16 @@ import { ProductComponent } from "../product/product.component";
   styleUrl: './carrasol-product.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CarrasolProductComponent {
+export class CarrasolProductComponent implements OnInit , OnDestroy{
   private readonly _ProductService = inject(ProductService);
 
-  productList:Iproduct[] = [];
+  @Input() startSlice! : number;
+  @Input() endSlice! : number;
 
+  productList:Iproduct[] = [];
+  allProduct!: Subscription;
   ngOnInit(): void {
-      this._ProductService.getAllProduct().subscribe(
+      this.allProduct = this._ProductService.getAllProduct().subscribe(
             {
               next: (res)=>{
                 this.productList = res.data;
@@ -27,5 +31,9 @@ export class CarrasolProductComponent {
               }
             }
       )
+  }
+
+  ngOnDestroy(): void {
+      this.allProduct.unsubscribe();
   }
 }

@@ -1,7 +1,8 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnDestroy, OnInit } from '@angular/core';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { Icategory } from '../../../core/interfaces/icategory';
 import { TitleComponent } from "../../title/title.component";
+import { Subscription } from 'rxjs';
 
 // Install Swiper modules
 
@@ -16,13 +17,14 @@ import { TitleComponent } from "../../title/title.component";
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
-export class CategorySliderComponent implements OnInit{
+export class CategorySliderComponent implements OnInit , OnDestroy{
 
   private readonly _CategoriesService = inject(CategoriesService);
 
+  allCategories!:Subscription;
   categoryList : Icategory[] | null = null ;
   ngOnInit(): void {
-    this._CategoriesService.getCategories().subscribe(
+    this.allCategories = this._CategoriesService.getCategories().subscribe(
       {
         next:(res)=>{
           this.categoryList = res.data;
@@ -33,6 +35,10 @@ export class CategorySliderComponent implements OnInit{
         }
       }
     )
+  }
+
+  ngOnDestroy():void{
+    this.allCategories.unsubscribe();
   }
 
 }

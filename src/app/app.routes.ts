@@ -9,6 +9,10 @@ import { BrandsComponent } from './component/brands/brands.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { logoutGuard } from './core/guards/logout.guard';
+import { ShopComponent } from './component/shop/shop.component';
+import { FavoriteComponent } from './component/favorite/favorite.component';
+import { SettingComponent } from './component/setting/setting.component';
+import { ProductDetailsComponent } from './component/product-details/product-details.component';
 
 export const routes: Routes = [
   {path:'' ,component: AuthComponent, canActivate: [logoutGuard],
@@ -27,9 +31,13 @@ export const routes: Routes = [
     children: [
       {path:'',redirectTo:'home' , pathMatch: 'full' ,title: 'home'},
       {path:'home',component:HomeComponent ,title: 'home'},
-      {path:'cart' , component:CartComponent , title: 'cart'},
+      {path:'shop' , component:ShopComponent , title: 'shop'},
       {path:'categories' , component:CategoriesComponent , title: 'category'},
-      {path:'brands' , component:BrandsComponent ,title: 'brands'}
+      {path:'brands' , component:BrandsComponent ,title: 'brands'},
+      {path:'favorite' , component:FavoriteComponent ,title: 'favorite'},
+      {path:'setting' , component:SettingComponent ,title: 'setting'},
+      {path:'cart' , component:CartComponent ,title: 'cart'},
+      {path:'product details' , component:ProductDetailsComponent ,title: 'Product Details'},
     ]
   },
 ];

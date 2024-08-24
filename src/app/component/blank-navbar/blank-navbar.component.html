@@ -10,13 +10,13 @@
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>
       <div class="px-3 cursor-pointer">
-        <i class="fa-regular fa-heart"></i>
+        <i class="fa-regular fa-heart" routerLink="/favorite"></i>
       </div>
       <div class="px-3 cursor-pointer">
-        <i class="fa-solid fa-bag-shopping"></i>
+        <i class="fa-solid fa-bag-shopping" routerLink="/cart" >  </i>
       </div>
       <div class="px-3 cursor-pointer">
-        <i class="fa-solid fa-gear"></i>
+        <i class="fa-solid fa-gear" routerLink="/setting"></i>
       </div>
       <button (click) = "logout()" type="button" class="text-white  focus:ring-4 ring-slate-300 focus:outline-none  font-medium  text-sm px-4 py-2 text-center bg-[#1E1E1E] rounded-3xl">LogOut</button>
       <button  data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center px-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
@@ -32,7 +32,7 @@
         <a routerLink="home" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >Home</a>
       </li>
       <li>
-        <a routerLink="cart" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >cart</a>
+        <a routerLink="productList" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >shop</a>
       </li>
       <li>
         <a routerLink="categories" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >categories</a>
