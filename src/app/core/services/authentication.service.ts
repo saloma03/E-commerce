@@ -22,6 +22,21 @@ export class AuthenticationService {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/signin` , userData);
   }
 
+  verifyUserEmail(userData : object) : Observable<any>
+  {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/forgotPasswords` , userData);
+  }
+
+  verifyRestCode(userData : object) : Observable<any>
+  {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/verifyResetCode` , userData);
+  }
+  resetPassword(userData : object) : Observable<any>
+  {
+    return this._HttpClient.put(`${environment.baseUrl}/api/v1/auth/resetPassword` , userData)
+    // return this._HttpClient.put(`${environment.baseUrl}/api/v1/auth/resetPassword` , userData);
+  }
+
   saveUserData():void
   {
     if(      localStorage.getItem('userToken') !== null

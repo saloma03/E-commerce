@@ -3,11 +3,12 @@ import { ProductService } from '../../core/services/product.service';
 import { Iproduct } from '../../core/interfaces/iproduct';
 import { SlicenamePipe } from '../../core/pipes/slicename.pipe';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [SlicenamePipe , CurrencyPipe],
+  imports: [SlicenamePipe , CurrencyPipe , RouterLink],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

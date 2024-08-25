@@ -13,6 +13,8 @@ import { ShopComponent } from './component/shop/shop.component';
 import { FavoriteComponent } from './component/favorite/favorite.component';
 import { SettingComponent } from './component/setting/setting.component';
 import { ProductDetailsComponent } from './component/product-details/product-details.component';
+import { NotfoundComponent } from './component/notfound/notfound.component';
+import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 
 export const routes: Routes = [
   {path:'' ,component: AuthComponent, canActivate: [logoutGuard],
@@ -24,7 +26,10 @@ export const routes: Routes = [
       },
       {
         path:'register' , component: RegisterComponent ,title: 'register'
-      }
+      },
+      {
+        path:'forget password' , component:  ForgetPasswordComponent,title: 'forget password'
+      },
     ]
   },
   {path:'' ,component: BlankComponent, canActivate: [authenticationGGuard],
@@ -37,7 +42,9 @@ export const routes: Routes = [
       {path:'favorite' , component:FavoriteComponent ,title: 'favorite'},
       {path:'setting' , component:SettingComponent ,title: 'setting'},
       {path:'cart' , component:CartComponent ,title: 'cart'},
-      {path:'product details' , component:ProductDetailsComponent ,title: 'Product Details'},
+      {path:'product details/:id' , component:ProductDetailsComponent ,title: 'Product Details'},
     ]
   },
+  {path:'**' , component:NotfoundComponent ,title: 'page not found'},
+
 ];

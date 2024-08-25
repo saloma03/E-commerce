@@ -19,7 +19,7 @@
 
     </div> -->
 
-    <div class="rounded-xl hover:scale-105  hover:border-2 hover:border-gray-800 transition-all duration-200 cursor-pointer mb-3">
+    <div class="rounded-xl hover:scale-105  hover:border-2 hover:border-gray-800 transition-all duration-200 cursor-pointer mb-3" [routerLink]="['/product details' , product.id ]">
       <img [src]="product.imageCover" class="rounded-xl" alt="">
       <h6 class="pt-1 px-2">{{product.title| slicename:5}}</h6>
 

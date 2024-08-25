@@ -1,1 +1,143 @@
-<p>product-details works!</p>
+@if(productDetails){
+  <div class="w-10/12 mx-auto my-20">
+    <div class="grid lg:grid-cols-2 md:grid-cols-1 gap-5 min-h-screen">
+      <div class="h-full">
+        <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+        thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
+        @for (image of productDetails.images; track $index) {
+          <swiper-slide>
+            <img [src]="image" [alt]="productDetails.title">
+          </swiper-slide>
+        }
+        </swiper-container>
+
+        <swiper-container class="mySwiper2" space-between="10" slides-per-view="4" free-mode="true"
+          watch-slides-progress="true">
+          @for (image of productDetails.images; track $index) {
+            <swiper-slide>
+              <img [src]="image" [alt]="productDetails.title">
+            </swiper-slide>
+          }
+
+        </swiper-container>
+      </div>
+
+      <div class="text-gray-900 h-full flex flex-col justify-center">
+        <div>
+          <h3 class="uppercase font-bold py-2">{{productDetails.title}}</h3>
+          <div class="fles justify-between py-2">
+              <p>{{productDetails.price | currency:'EUR'}}</p>
+              <p class="text-gray-400"> size guide </p>
+          </div>
+          <div class="flex gap-2 py-2">
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
+              Xs
+            </div>
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
+              S
+            </div>
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
+              M
+            </div>
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
+              L
+            </div>
+          </div>
+        </div>
+
+        <div class="flex px-2 justify-between items-baseline">
+          <div class="py-2 flex gap-2">
+            <div class="rounded-full cursor-pointer bg-red-950 p-3"></div>
+            <div class="rounded-full cursor-pointer bg-pink-200 p-3"></div>
+            <div class="rounded-full cursor-pointer bg-blue-950 p-3"></div>
+          </div>
+          <div>
+            @for (star of [1,2,3,4,5].slice(0 , productDetails.ratingsAverage); track $index) {
+              <i class="fa-solid fa-star text-yellow-300"></i>
+            }
+            @if (productDetails.ratingsAverage! % 1 !== 0) {
+              <i class="fa-solid fa-star-half text-yellow-300"></i>
+            }
+          </div>
+        </div>
+
+        <div class="py-3">
+          <button class="rounded-3xl uppercase px-3 py-3 w-full bg-gray-900 text-white">
+            add to bag
+          </button>
+        </div>
+
+        <div class="flex justify-center items-baseline gap-5">
+          <i class="fa-solid fa-heart cursor-pointer" [ngClass]="{'text-gray-400': !favorite , 'text-red-700': favorite}" (click)="favorite = !favorite"></i>
+          <p class="text-center">add to favorite</p>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <ul class="list-none text-gray-900">
+            <li class="cursor-pointer py-2 border-b-2 border-gray-200" (click)="getReviews = !getReviews">
+              <div class="flex items-center justify-between">
+                <span class="flex items-center">
+                  <i class="fa-solid fa-chevron-right px-2" id="chevron-icon"></i>
+                  Reviews
+                </span>
+              </div>
+              <ul class="pl-8 pt-2" [ngClass]="{'hidden': !getReviews}">
+                <li class="py-1">
+                  <span class="font-bold">total reviews</span> : <i class="fa-solid fa-users px-3"></i> {{productDetails.ratingsQuantity}}
+                </li>
+                @for (rev of [1, 2, 3]; track $index) {
+                  <li class="p-2 text-gray-500 border-2 border-gray-200 rounded-lg my-2">
+                    <div class="flex flex-col gap-2 mb-2">
+                      <i class="fa-solid fa-user"></i>
+                      <div class="flex">
+                        @for (star of [1,2,3,4,5].slice(0 , productDetails.ratingsAverage); track $index) {
+                          <i class="fa-solid fa-star text-yellow-300"></i>
+                        }
+                      </div>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, nisi.</p>
+                    </div>
+                  </li>
+                }
+              </ul>
+            </li>
+            <li class="cursor-pointer py-2 border-b-2 border-gray-200">
+              <i class="fa-solid fa-chevron-right px-2"></i>
+              Size & Fit
+            </li>
+            <li class="cursor-pointer py-2 border-b-2 border-gray-200" (click)="getMoreDetails = !getMoreDetails">
+              <div class="flex items-center justify-between">
+                <span class="flex items-center">
+                  <i class="fa-solid fa-chevron-right px-2" id="chevron-icon"></i>
+                  Composition
+                </span>
+              </div>
+              <ul class="pl-8 pt-2" [ngClass]="{'hidden': !getMoreDetails}">
+                <li class="py-1">
+                  <span class="font-bold">Brand</span> : {{productDetails.brand.name}}
+                </li>
+                <li class="py-1 text-gray-500">
+                  {{productDetails.description}}
+                </li>
+                <li class="py-1">
+                  <span class="font-bold">Sold</span> : {{productDetails.sold}}
+                </li>
+              </ul>
+            </li>
+            <li class="p-2 text-gray-500 border-2 border-gray-200 rounded-lg my-2" onclick="onInputClick($event)">
+              <div class="flex flex-col gap-2 mb-2">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="add review" class="rounded-2xl w-full focus:outline-none focus:border-0">
+                <button class="rounded-3xl uppercase w-1/4 px-2 py-1 bg-gray-900 text-white">
+                  submit
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+}
