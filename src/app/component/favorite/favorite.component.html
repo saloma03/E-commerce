@@ -1,1 +1,87 @@
-<p>favorite works!</p>
+<div class="w-10/12 mx-auto p-0 my-20">
+
+  <div class="flex flex-col gap-2  justify-center items-center">
+    <h3 class="uppercase font-bold text-3xl text-gray-900"> My WishList</h3>
+    <div class="p-5 flex justify-between gap-x-4 bg-[#f4f4f4] text-gray-900 w-full">
+      <div class="flex gap-x-4">
+        <div>
+          <button id="dropDownCategory" data-dropdown-toggle="category" class="text-gray-900 bg-white hover:bg-[#fffff]  focus:outline-none  font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-black dark:text-white " type="button">category <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="category" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropDownCategory">
+                  @for (categoryItem of categoryList; track $index) {
+                    <i class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{categoryItem.name}}</i>
+                  }
+                </ul>
+            </div>
+        </div>
+
+        <div>
+          <button id="dropdownStatus" data-dropdown-toggle="status" class="text-gray-900 bg-white hover:bg-[#fffff]  focus:outline-none  font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-black dark:text-white " type="button">status <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="status" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownStatus">
+                    <i class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">sold out</i>
+                    <i class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">in stock</i>
+                    <i class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">out stock</i>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div>
+          <button id="dropdownFilter" data-dropdown-toggle="filter" class="text-gray-900 bg-white hover:bg-[#fffff]  focus:outline-none  font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-black dark:text-white " type="button">All Filters <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="filter" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownFilter">
+                    <i class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Top Price</i>
+                    <i class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Min Price</i>
+
+                </ul>
+            </div>
+
+        </div>
+
+      </div>
+      <div class="flex gap-2 items-center">
+          <p>sort by</p>
+          <div>
+            <button id="dropDownMainFilter" data-dropdown-toggle="sort" class="text-gray-900 bg-white hover:bg-[#fffff]  focus:outline-none  font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-black dark:text-white " type="button">Recently Added <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+              </button>
+
+              <!-- Dropdown menu -->
+              <div id="sort" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropDownCategory">
+                    <i class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">recently added</i>
+
+                  </ul>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5">
+      @for (p of favoriteProduct; track $index) {
+        <app-product [product]="p" [isFromFavorite]="true"></app-product>
+      }
+    </div>
+  </div>
+
+</div>
+<h4 class="text-gray-900 uppercase text-center font-bold text-3xl">People also love:</h4>
+<app-carrasol-product [endSlice]="9" [startSlice]="1"></app-carrasol-product>

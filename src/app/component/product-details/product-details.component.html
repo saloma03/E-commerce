@@ -62,13 +62,16 @@
         </div>
 
         <div class="py-3">
-          <button class="rounded-3xl uppercase px-3 py-3 w-full bg-gray-900 text-white">
+          <button class="rounded-3xl uppercase px-3 py-3 w-full bg-gray-900 text-white disabled:bg-gray-700" (click)="addToBag(productDetails._id)" [disabled]="isloading">
             add to bag
+            @if (isloading) {
+              <i class="fa fa-spin fa-spinner"></i>
+            }
           </button>
         </div>
 
         <div class="flex justify-center items-baseline gap-5">
-          <i class="fa-solid fa-heart cursor-pointer" [ngClass]="{'text-gray-400': !favorite , 'text-red-700': favorite}" (click)="favorite = !favorite"></i>
+          <i class="fa-solid fa-heart cursor-pointer" [ngClass]="{'text-gray-400': !favorite , 'text-red-700': favorite}" (click)="favorite = !favorite" (click)="addToFavorite(productDetails._id)"></i>
           <p class="text-center">add to favorite</p>
         </div>
 
@@ -123,7 +126,7 @@
                 </li>
               </ul>
             </li>
-            <li class="p-2 text-gray-500 border-2 border-gray-200 rounded-lg my-2" onclick="onInputClick($event)">
+            <li class="p-2 text-gray-500 border-2 border-gray-200 rounded-lg my-2" >
               <div class="flex flex-col gap-2 mb-2">
                 <i class="fa-solid fa-user"></i>
                 <input type="text" placeholder="add review" class="rounded-2xl w-full focus:outline-none focus:border-0">
@@ -138,6 +141,13 @@
     </div>
 
 
+
+
   </div>
 
 }
+
+
+<h4 class="font-bold text-gray-900 text-3xl uppercase text-center"> you might like :</h4>
+
+<app-carrasol-product [startSlice]="10" [endSlice]="20"></app-carrasol-product>

@@ -1,1 +1,33 @@
-<p>shop works!</p>
+<div class="w-10/12 mx-auto my-20">
+  <div class="grid lg:grid-cols-6 md:grid-cols-3 gap-4">
+    @for (catItem of catList; track $index)
+    {
+      <div class="py-2 px-3 text-center border-2 border-gray-200 hover:border-black cursor-pointer" (click)="filterProduct(catItem.name)">
+        <p>{{catItem.name}}</p>
+      </div>
+    }
+  </div>
+  <div>
+    <div class="p-5 mt-5 flex justify-between gap-x-4 bg-[#f4f4f4] text-gray-900 w-full">
+      <div class="flex gap-x-4">
+
+        <!-- Status Dropdown Container -->
+        <app-dropdown [bId]="'dropdownStatus'" [mId]="'statusDropdown'" [buttonName]="'status'" [menu]="['on stock' , 'on hold' , 'sold out']" [p]="filteredList"   (filteredProducts)="updateFilteredList($event)">
+          ></app-dropdown>
+
+        <!-- Filter Dropdown Container -->
+        <app-dropdown [bId]="'dropdownFilter'" [mId]="'filterDropdown'" [buttonName]="'All filter'" [menu]="['Top Price' , 'Low Price' ,'By Sold' ]" [p]="filteredList"   (filteredProducts)="updateFilteredList($event)">
+          ></app-dropdown>
+
+      </div>
+    </div>
+
+
+  </div>
+  <div class="grid lg:grid-cols-4 md:grid-cols-1 gap-4">
+    @for (f of filteredList; track $index) {
+      <app-product [product]="f"></app-product>
+    }
+  </div>
+
+</div>

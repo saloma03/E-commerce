@@ -29,9 +29,11 @@ export class LoginComponent {
   })
 
   loginSubmit():void{
+    this.isLoading = true;
+
     this._AuthenticationService.setLoginForm(this.loginForm.value).subscribe({
       next: (res)=>{
-        this.isLoading = true;
+        this.isLoading = false;
         swal({
           text: 'logged in',
           icon: "success",

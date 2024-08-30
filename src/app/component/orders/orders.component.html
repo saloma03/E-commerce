@@ -1,0 +1,85 @@
+<section class=" w-10/12 mx-auto my-20 text-lg bg-[#F4F4F4] shadow-lg rounded-md p-2 ">
+  <h1 class="text-red-950 font-bold py-4" >Enter Address Details:</h1>
+
+
+  <form class=" mx-auto" [formGroup]="addressForm" (ngSubmit)="checkOut()">
+
+    <div class="relative z-0 w-full mb-5 group py-3">
+        <input
+        [ngClass]="{
+          'border-green-400': !addressForm.get('details')?.errors && (addressForm.get('details')?.touched || addressForm.get('details')?.dirty),
+
+          }"
+        type="details" name="floating_details"
+        id="floating_details"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer"
+        placeholder=" "
+        required
+        formControlName="details" />
+        <label
+        for="floating_details"
+        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+        details address
+        </label>
+
+        @if (addressForm.get('details')?.errors && (addressForm.get('details')?.touched || addressForm.get('details')?.dirty)) {
+          <div class="mt-1 text-red-600 hover:text-red-800 text-sm">
+              @if (addressForm.get('details')?.getError('required')) {
+                <p>your details is required</p>
+              }
+          </div>
+        }
+    </div>
+
+
+    <div class="relative z-0 w-full mb-5 group py-3">
+      <input  [ngClass]="{
+        'border-green-400': !addressForm.get('phone')?.errors && (addressForm.get('phone')?.touched || addressForm.get('phone')?.dirty),
+        }"
+        type="phone" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer" placeholder=" " required formControlName="phone" />
+      <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">phone</label>
+      @if (addressForm.get('phone')?.errors && (addressForm.get('phone')?.touched||addressForm.get('phone')?.dirty)) {
+        <div class="mt-1 text-red-500 hover:text-red-800 text-sm">
+          @if (addressForm.get('phone')?.getError('required')) {
+            <p>
+              phone is required
+            </p>
+          }@else if(addressForm.get('phone')?.getError('pattern')){
+            <p>enter valid Egyption number</p>
+          }
+        </div>
+      }
+  </div>
+
+
+    <div class="relative z-0 w-full mb-5 group py-3">
+      <input  [ngClass]="{
+        'border-green-400': !addressForm.get('city')?.errors && (addressForm.get('city')?.touched || addressForm.get('city')?.dirty),
+        }"
+        type="city" name="floating_city" id="floating_city" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer" placeholder=" " required formControlName="city" />
+      <label for="floating_city" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">city</label>
+      @if (addressForm.get('city')?.errors && (addressForm.get('city')?.touched||addressForm.get('city')?.dirty)) {
+        <div class="mt-1 text-red-500 hover:text-red-800 text-sm">
+          @if (addressForm.get('city')?.getError('required')) {
+            <p>
+              city is required
+            </p>
+          }
+        </div>
+      }
+  </div>
+  <div class="flex justify-end items-center gap-2">
+    <p class="underline font-thin text-sm cursor-pointer" routerLink="/forget phone" >did you forget the phone?</p>
+    <button [disabled]="addressForm.invalid || isLoading" type="submit" class="disabled:bg-gray-500 text-white bg-gray-900 hover:bg-red-950 focus:outline-none focus:ring-[rgba(69 ,10, 10,0.5 )] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-900 dark:hover:bg-red-900 dark:focus:ring-red-950">
+      checkout Now
+      @if (isLoading ) {
+        <span><i class="fas fa-spin fa-spinner"></i></span>
+      }
+    </button>
+  </div>
+
+
+  </form>
+
+
+</section>

@@ -1,1 +1,126 @@
-<p>cart works!</p>
+@if (cartDetails) {
+    <div class="w-10/12 mx-auto p-0 my-20">
+
+        <div class="grid grid-cols-12 gap-x-5">
+
+            <div class="col-span-8   px-3 ">
+              <div class="grid grid-cols-2 gap-3">
+                <div class="border-2 border-green-200 bg-green-100 py-2 px-3">
+                    <p><i class="fa-solid fa-truck-fast"></i> shipping is free</p>
+                    <p>Enjoy FREE shipping! Checkout Now!
+                    </p>
+                </div>
+                <div class="border-2 border-red-200 bg-red-100 py-2 px-3">
+                    <p><i class="fa-solid fa-check"></i> Use coupon now to save $1.35
+                    </p>
+                </div>
+            </div>
+                <div class="py-3 px-3 bg-[#f4f4f4] mt-4">
+                    <p class="text-gray-900 font-bold uppercase"> all items ({{numberOfCartItems}})</p>
+                </div>
+            </div>
+            <div class="col-span-4 bg-[#f4f4f4] px-3">
+                <p class="text-gray-900 font-bold uppercase">
+                    Order Summary
+                </p>
+                <div class="text-right">
+                  <p class="text-gray-900 font-bold text-lg">
+                    {{cartDetails.totalCartPrice | currency : 'EUR'}}
+                  </p>
+                  <span class="text-green-400">
+                    Already saved {{cartDetails.totalCartPrice }}
+                  </span>
+                </div>
+                <button class="py-2 text-center w-full bg-gray-900 text-white font-bold disabled:bg-gray-700" [routerLink]="['/orders',cartId]" [disabled]="numberOfCartItems ==0">
+                    Check out now ({{numberOfCartItems}})
+                    <br>
+                    <span class="text-orange-500 text-thin"> <i class="fa-solid fa-fire fa-xs "></i> almost sold out </span>
+                </button>
+            </div>
+            <div class="col-span-12 lg:col-span-8 mt-3 px-3">
+              @if (numberOfCartItems !== 0) {
+                <div class="py-3 px-3 bg-[#f4f4f4]">
+                  <div class="flex items-center justify-between">
+                    <h5 class=" capitalize font-bold text-sm"><i class="fa-solid fa-store fa-xl"></i> fashionfurnish sport lifespree ></h5>
+                    <button class="p-2 rounded-lg bg-orange-600 text-white" (click)="clearCart()">
+                      clear cart
+                      @if (clearing) {
+                        <i class="fa fa-spin fa-spinner"></i>
+                      }
+                    </button>
+                  </div>
+                </div>
+                @for (productCart of cartDetails.products; track $index) {
+                  <div class="grid grid-cols-12 py-3 px-3 bg-[#f4f4f4] ">
+                    <div class="col-span-3">
+                      <img [src]="productCart.product.imageCover" class="w-full h-28 object-contain" [alt]="productCart.product.title">
+                    </div>
+                    <div class="col-span-9">
+                      <div class="flex flex-col gap-3 justify-between">
+                        <div>
+                          <h3>{{productCart.product.title}}</h3>
+                          <div class=" flex gap-2 items-baseline py-1 px-2 bg-gray-200 rounded-lg w-fit text-gray-600">
+                            <i class="fa-solid fa-circle"></i>
+                            <span>black / 8/10/L</span>
+                          </div>
+
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <div>
+
+                            <span class="text-green-400">{{productCart.price | currency : 'EUR'}}</span>
+                            <span class=" px-2 text-gray-500 line-through">{{productCart.price + 10 | currency : 'EUR'}} </span>
+                          </div>
+
+                          <div>
+
+
+                            <div class="flex items-center gap-2">
+                              <button class="text-gray-900 font-extrabold hover:scale-110 transition duration-150" (click)="updateQuantity(productCart.product._id , productCart.count + 1)">
+                                +
+                              </button>
+                              <p class="text-gray-900 font-bold">
+                                {{productCart.count}}
+                              </p>
+                              <button class="text-gray-900 font-extrabold hover:scale-110 transition duration-150" (click)="updateQuantity(productCart.product._id , productCart.count-1)">
+                                -
+                              </button>
+
+                              <i class="fa-solid fa-magnifying-glass px-1 text-gray-800 cursor-pointer" ></i>
+                              <i class="fa-solid fa-heart px-1 text-gray-400 cursor-pointer" (click)="addToFavorite(productCart.product._id)"></i>
+                              <i class="fa-regular fa-trash-can px-1 text-gray-800 cursor-pointer" (click)="removeProduct(productCart.product._id)"></i>
+
+                            </div>
+
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                  </div>
+                  }
+              }@else {
+
+                <div class="flex flex-col justify-center items-center gap-4 py-3 px-3 bg-[#f4f4f4]">
+                  <i class="fa-solid fa-cart-shopping text-gray-900 fa-5x"></i>
+                  <p class="text-gray-900 font-bold uppercase">Your cart is empty</p>
+                  <button class="uppercase bg-gray-900 text-white font-bold py-2 px-2 hover:scale-105 transition duration-150" routerLink="/shop">
+                    Shop Now
+                  </button>
+                </div>
+
+              }
+
+            </div>
+
+        </div>
+    </div>
+}
+
+
+

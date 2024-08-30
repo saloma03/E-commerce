@@ -15,6 +15,8 @@ import { SettingComponent } from './component/setting/setting.component';
 import { ProductDetailsComponent } from './component/product-details/product-details.component';
 import { NotfoundComponent } from './component/notfound/notfound.component';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
+import { AllordersComponent } from './component/allorders/allorders.component';
+import { OrdersComponent } from './component/orders/orders.component';
 
 export const routes: Routes = [
   {path:'' ,component: AuthComponent, canActivate: [logoutGuard],
@@ -43,6 +45,8 @@ export const routes: Routes = [
       {path:'setting' , component:SettingComponent ,title: 'setting'},
       {path:'cart' , component:CartComponent ,title: 'cart'},
       {path:'product details/:id' , component:ProductDetailsComponent ,title: 'Product Details'},
+      {path:'allorders' , component:AllordersComponent ,title: 'all orders'},
+      {path:'orders/:id' , component:OrdersComponent ,title: 'shipping address'},
     ]
   },
   {path:'**' , component:NotfoundComponent ,title: 'page not found'},
