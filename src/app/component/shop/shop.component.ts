@@ -8,22 +8,26 @@ import { Iproduct } from '../../core/interfaces/iproduct';
 import { Icategory } from '../../core/interfaces/icategory';
 import { ProductComponent } from "../product/product.component";
 import { DropdownComponent } from "../dropdown/dropdown.component";
+import { FormsModule } from '@angular/forms';
+import { SearchPipe } from '../../core/pipes/search.pipe';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
-  imports: [ProductComponent, DropdownComponent]
+  imports: [ProductComponent, DropdownComponent ,FormsModule , SearchPipe]
 })
 export class ShopComponent implements OnInit {
   private readonly _CategoriesService = inject(CategoriesService);
   private readonly _ProductService = inject(ProductService);
 
   catList: Icategory[] = [];
+  catName!:string[];
   productList: Iproduct[] = [];
   filteredList: Iproduct[] = [];
   sortedList:Iproduct[] = [];
+  textSearch:string = "";
 
   dropdowns : any = {
     statusDropdown: false,
@@ -37,6 +41,7 @@ export class ShopComponent implements OnInit {
     this._CategoriesService.getCategories().subscribe({
       next: (res) => {
         this.catList = res.data;
+        this.catName = this.catList.map(category => category.name);
       }
     });
 

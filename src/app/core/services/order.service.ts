@@ -7,9 +7,7 @@ import { environment } from '../environment/environment';
   providedIn: 'root'
 })
 export class OrderService {
-  mtHeader : any = {
-    token : localStorage.getItem('userToken')
-  }
+
   constructor(private _HttpClient : HttpClient) { }
 
 
@@ -17,9 +15,6 @@ export class OrderService {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/orders/checkout-session/${id}?url=${environment.serverUrl}`,
       {
         shippingAddress: shipping
-      },
-      {
-        headers: this.mtHeader
       }
     )
   }

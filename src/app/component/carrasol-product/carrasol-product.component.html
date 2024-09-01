@@ -1,6 +1,6 @@
 <div class="pt-3">
-  <swiper-container class="mySwiper" slides-per-view="4" initial-slide="0"  pagination="true"
-    pagination-type="fraction" navigation="true">
+  <swiper-container #swiperContainer class="mySwiper" [slidesPerView]="slidesPerView" [initialSlide]="0" pagination="true"
+    paginationType="fraction" navigation="true">
     @for (p of productList.slice(startSlice,endSlice); track $index) {
     <swiper-slide class="py-5">
       <app-product [product]="p"></app-product>

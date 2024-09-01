@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import swal from 'sweetalert';
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -66,7 +67,11 @@ export class RegisterComponent implements OnInit{
     registerSubmit():void{
         if(this.registerForm.valid){
           this.isLoading = true;
-          this._AuthenticationService.setRegisterForm(this.registerForm.value).subscribe(
+          this._AuthenticationService.setRegisterForm(this.registerForm.value).pipe(
+            finalize(() => {
+              this.isLoading = false;
+            })
+          ).subscribe(
             {
               next: (res)=>{
                 console.log(res);

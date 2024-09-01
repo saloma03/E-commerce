@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import swal from 'sweetalert';
+import { finalize } from 'rxjs';
 
 
 @Component({
@@ -28,26 +29,29 @@ export class LoginComponent {
     password: [null , [Validators.required , Validators.pattern(/^\w{6,}$/)]]
   })
 
-  loginSubmit():void{
+  loginSubmit(): void {
     this.isLoading = true;
 
-    this._AuthenticationService.setLoginForm(this.loginForm.value).subscribe({
-      next: (res)=>{
+    this._AuthenticationService.setLoginForm(this.loginForm.value).pipe(
+      finalize(() => {
         this.isLoading = false;
+      })
+    ).subscribe({
+      next: (res) => {
         swal({
           text: 'logged in',
-          icon: "success",
-          timer:1000
+          icon: 'success',
+          timer: 1000
         });
-        if(res.message == "success"){
-          setTimeout(()=>{
-            localStorage.setItem('userToken' , res.token);
+        if (res.message == 'success') {
+          setTimeout(() => {
+            localStorage.setItem('userToken', res.token);
             this._AuthenticationService.saveUserData();
-            this._Router.navigate(['/home'])
-          } ,1000)
+            this._Router.navigate(['/home']);
+          }, 1000);
         }
       }
-    })
-  }
+    });
 
+  }
 }

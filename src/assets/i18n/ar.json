@@ -1,0 +1,18 @@
+{
+  "navbar":{
+    "FashionFurnish": "ملابس عصرية",
+    "home": "الرئيسية",
+    "categories": "الاقسام",
+    "shop": "التسوق",
+    "brands": "البراندات",
+    "Logout": "تسجيل الخروج",
+    "english":"انجليزي",
+    "arabic":"عربي",
+    "setting":"الاعدادات",
+    "CloseMenu":"اغلاق النافذة",
+    "UpdateProfile":"تحديث معلومات الحساب"
+
+  }
+
+
+}

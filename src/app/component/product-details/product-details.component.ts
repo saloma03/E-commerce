@@ -7,6 +7,7 @@ import { CartService } from '../../core/services/cart.service';
 import { log } from 'console';
 import { FavoriteService } from '../../core/services/favorite.service';
 import { CarrasolProductComponent } from "../carrasol-product/carrasol-product.component";
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -48,7 +49,11 @@ export class ProductDetailsComponent implements OnInit{
 
   addToBag(id:string):void{
     this.isloading = true;
-      this._CartService.addProductToCart(id).subscribe({
+      this._CartService.addProductToCart(id).pipe(
+        finalize(() => {
+          this.isloading = false;
+        })
+      ).subscribe({
         next: (res)=>{
           this.isloading = false;
             console.log(res);

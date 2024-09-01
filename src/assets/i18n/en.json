@@ -1,0 +1,17 @@
+{
+  "navbar":{
+    "FashionFurnish": "FashionFurnish",
+    "home": "Home",
+    "categories": "Categories",
+    "shop": "Shop",
+    "brands": "Brands",
+    "Logout": "logout",
+    "english":"English",
+    "arabic":"Arabic",
+    "setting":"Setting",
+    "CloseMenu":"Close menu",
+    "UpdateProfile":"Update Profile"
+
+  }
+
+}

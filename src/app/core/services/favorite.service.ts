@@ -12,23 +12,17 @@ export class FavoriteService {
   private readonly _HttpClient = inject(HttpClient);
   constructor() { }
 
-  myHeader : any = { token :localStorage.getItem('userToken') };
 
   addToWishList(id:string):Observable<any>{
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/wishlist`,
       {"productId" : id}
-      ,{
-        headers: this.myHeader
-
-    })
+     )
   }
   getUserWishList():Observable<any>{
-    return this._HttpClient.get(`${environment.baseUrl}/api/v1/wishlist` , {headers : this.myHeader})
+    return this._HttpClient.get(`${environment.baseUrl}/api/v1/wishlist` )
   }
   deleteFromWishList(id : string):Observable<any>{
-    return this._HttpClient.delete(`${environment.baseUrl}/api/v1/wishlist/${id}`,{
-      headers: this.myHeader
-  })
+    return this._HttpClient.delete(`${environment.baseUrl}/api/v1/wishlist/${id}`)
   }
 
 }

@@ -1,0 +1,13 @@
+#drawer-navigation {
+  transform: translateX(-100%); /* Initially hidden */
+  transition: transform 0.3s ease-in-out;
+}
+
+#drawer-navigation.open {
+  transform: translateX(0); /* Show the drawer */
+}
+
+/* Additional styling for dark mode or other themes */
+.dark #drawer-navigation {
+  background-color: #2d3748;
+}

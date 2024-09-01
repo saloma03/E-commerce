@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CartService } from '../../core/services/cart.service';
 import { OrderService } from '../../core/services/order.service';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -37,7 +38,11 @@ export class OrdersComponent implements OnInit{
 
   checkOut():void{
     this.isLoading = true;
-    this._OrderService.checkout( this.cartId , this.addressForm.value).subscribe({
+    this._OrderService.checkout( this.cartId , this.addressForm.value).pipe(
+      finalize(() => {
+        this.isLoading = false;
+      })
+    ).subscribe({
       next:(res)=>{
         this.isLoading = false;
         console.log(res);
