@@ -10,8 +10,11 @@
     "arabic":"Arabic",
     "setting":"Setting",
     "CloseMenu":"Close menu",
-    "UpdateProfile":"Update Profile"
-
+    "UpdateProfile":"Update Profile",
+    "search": "Search",
+    "wishList":"WishList",
+    "cart":"Cart",
+    "settings":"Settings"
   }
 
 }

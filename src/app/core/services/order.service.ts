@@ -19,5 +19,9 @@ export class OrderService {
     )
   }
 
+  getUserOrders(id : string):Observable<any>{
+      return this._HttpClient.get(`${environment.baseUrl}/api/v1/orders/user/${id}`);
+  }
+
 
 }

@@ -10,7 +10,11 @@
     "arabic":"عربي",
     "setting":"الاعدادات",
     "CloseMenu":"اغلاق النافذة",
-    "UpdateProfile":"تحديث معلومات الحساب"
+    "UpdateProfile":"تحديث معلومات الحساب",
+    "search": "البحث",
+    "wishList":"المفضلات",
+    "cart":"سلة المشتريات",
+    "settings":"الاعدادات"
 
   }
 

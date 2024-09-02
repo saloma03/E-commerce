@@ -1,1 +1,83 @@
-<p>allorders works!</p>
+
+
+
+@if (orderedProducts.length !== 0) {
+  @for (item of orderedProducts; track $index) {
+    <div class="w-10/12 mx-auto p-0 my-20">
+      <div class="grid grid-cols-12 gap-x-5">
+
+        <!-- Order Details Section -->
+        <div class="lg:col-span-8 col-span-12 px-3">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="border-2 border-green-200 bg-green-100 py-2 px-3">
+              <p><i class="fa-solid fa-sack-dollar"></i> Payed by {{item.paymentMethodType}}</p>
+
+            </div>
+            <div class="border-2 border-red-200 bg-red-100 py-2 px-3">
+              <p><i class="fa-solid fa-warning"></i> Not Delivered Yet</p>
+            </div>
+          </div>
+          <div class="py-3 px-3 bg-[#f4f4f4] mt-4">
+            <p class="text-gray-900 font-bold uppercase">All items ({{item.cartItems.length + 1}})</p>
+          </div>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="lg:col-span-4 col-span-12 lg:order-1 order-3 lg:mt-0 mt-3 px-3">
+          <div class="p-3 bg-[#f4f4f4]">
+            <p class="text-gray-900 font-bold uppercase">Order Summary</p>
+            <div class="text-right">
+              <p class="text-gray-900 font-bold text-lg">
+                {{item.totalOrderPrice | currency : 'EUR'}}
+              </p>
+              <span class="text-green-400">Already saved {{20 | currency:'EUR'}} for shipping and Tax!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products List Section -->
+        <div class="col-span-12 lg:col-span-8 mt-3 px-3">
+          @for (productCart of item.cartItems; track $index) {
+            <div class="grid grid-cols-12 py-3 px-3 bg-[#f4f4f4]">
+              <div class="col-span-3">
+                <img [src]="productCart.product.imageCover" class="w-full h-28 object-contain" [alt]="productCart.product.title">
+              </div>
+              <div class="col-span-9">
+                <div class="flex flex-col gap-3 justify-between">
+                  <div>
+                    <h3>{{productCart.product.title}}</h3>
+                    <div class="flex gap-2 items-baseline py-1 px-2 bg-gray-200 rounded-lg w-fit text-gray-600">
+                      <i class="fa-solid fa-circle"></i>
+                      <span>black / 8/10/L</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <span class="text-green-400">{{productCart.price | currency : 'EUR'}}</span>
+                      <span class="px-2 text-gray-500 line-through">{{productCart.price + 10 | currency : 'EUR'}}</span>
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <p class="text-gray-900 font-bold">{{productCart.count}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+} @else {
+  <div class="flex flex-col justify-center items-center gap-4 py-3 px-3 bg-[#f4f4f4]">
+    <i class="fa-solid fa-cart-shopping text-gray-900 fa-5x"></i>
+    <p class="text-gray-900 font-bold uppercase">You didn't order anything</p>
+    <button class="uppercase bg-gray-900 text-white font-bold py-2 px-2 hover:scale-105 transition duration-150" routerLink="/shop">
+      Shop Now
+    </button>
+  </div>
+}
+<h2>hrlp</h2>

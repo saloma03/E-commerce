@@ -1,36 +1,44 @@
-
-
 <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  <a routerLink="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a routerLink="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
       <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{"navbar.FashionFurnish" | translate}}</span>
-  </a>
-  <div class="flex items-baseline md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <div class="px-3 cursor-pointer">
-        <i class="fa-solid fa-magnifying-glass" routerLink="/shop" ></i>
-      </div>
-      <div class="px-3 cursor-pointer">
-        <i class="fa-regular fa-heart" routerLink="/favorite"></i>
-      </div>
-      <div class="px-3 cursor-pointer">
-        <i class="fa-solid fa-bag-shopping" routerLink="/cart" >  </i>
-      </div>
-      <div class="px-3 cursor-pointer" >
+    </a>
 
-          <i class="fa-solid fa-gear " (click)="openDrawer()" ></i>
-
+    <div class="flex items-center md:order-2 space-x-4 rtl:space-x-reverse">
+      <!-- Icons with improved spacing and hover effects -->
+      <div class="lg:px-3 lg:block hidden px-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+        <i class="fa-solid fa-magnifying-glass text-lg" routerLink="/shop"></i>
       </div>
-      <!-- <div class="text-center">
-        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
-        Show navigation
-        </button>
-     </div> -->
+      <div class="lg:px-3 px-2 lg:block hidden cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+        <i class="fa-regular fa-heart text-lg" routerLink="/favorite"></i>
+      </div>
+      <div class="lg:px-3 px-2 lg:block hidden cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+        <i class="fa-solid fa-bag-shopping text-lg" routerLink="/cart"></i>
+      </div>
+      <div class="lg:px-3 px-2 lg:block hidden cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+        <i class="fa-solid fa-gear text-lg" (click)="openDrawer()"></i>
+      </div>
 
-     <div #drawerNavigation id="drawer-navigation" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transform transition-transform -translate-x-full bg-white w-64 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
+      <!-- Responsive Get Started Button -->
+      <button (click)="logout()"  class="text-white bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        logout
+      </button>
+
+      <!-- Menu button for small screens -->
+      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Drawer Navigation -->
+    <div #drawerNavigation id="drawer-navigation" class="fixed top-0 -left-4 z-40 h-screen p-4 overflow-y-auto transform transition-transform -translate-x-full bg-white w-64 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
       <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Setting</h5>
       <button type="button" (click)="closeDrawer()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path>
         </svg>
         <span class="sr-only">{{"navbar.CloseMenu"}}</span>
       </button>
@@ -39,16 +47,16 @@
           <li>
             <a routerLink="/update" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
               <i class="fa-solid fa-user"></i>
-              <span class="ms-3"> {{"navbar.UpdateProfile"|translate}}</span>
+              <span class="ms-3">{{"navbar.UpdateProfile" | translate}}</span>
             </a>
           </li>
           <li>
             <div class="flex rounded-md shadow-sm" role="group">
               <button (click)="translate('en')" class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
-                {{"navbar.english"|translate}}
+                {{"navbar.english" | translate}}
               </button>
               <button (click)="translate('ar')" class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-r-lg hover:bg-gray-900 hover:text-white focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
-                {{"navbar.arabic"|translate}}
+                {{"navbar.arabic" | translate}}
               </button>
             </div>
           </li>
@@ -56,31 +64,47 @@
       </div>
     </div>
 
+    <!-- Main Navbar Items -->
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+      <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a routerLink="home" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white">{{"navbar.home" | translate}}</a>
+        </li>
+        <li>
+          <a routerLink="shop" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white">{{"navbar.shop" | translate}}</a>
+        </li>
+        <li>
+          <a routerLink="categories" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white">{{"navbar.categories" | translate}}</a>
+        </li>
+        <li>
+          <a routerLink="brands" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white">{{"navbar.brands" | translate}}</a>
+        </li>
+        <li class="md:hidden">
+            <a routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white" routerLink="/shop">
+              {{"navbar.search" | translate}}
+            </a>
+        </li>
+        <li class="md:hidden">
+          <a routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white" routerLink="/favorite">
+            {{"navbar.wishList" | translate}}
+          </a>
+        </li>
+        <li class="md:hidden">
+          <a routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white" routerLink="/cart">
+            {{"navbar.cart" | translate}}
+          </a>
+
+        </li>
+        <li class="md:hidden">
+
+          <a (click)="openDrawer()" class="block py-2 px-3 text-[#b8b8b8b8] rounded md:bg-transparent md:p-0 hover:text-gray-900 dark:hover:text-white" >
+            {{"navbar.settings" | translate}}
+          </a>
+
+        </li>
 
 
-
-  </div>
-
-
-
-
-  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-    <ul class="flex flex-col  p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-      <li>
-        <a routerLink="home" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >{{"navbar.home" | translate}}</a>
-      </li>
-      <li>
-        <a routerLink="shop" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >{{"navbar.shop" | translate}}</a>
-      </li>
-      <li>
-        <a routerLink="categories" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >{{"navbar.categories" | translate}}</a>
-      </li>
-      <li>
-        <a routerLink="brands" routerLinkActive="text-red-900" class="block py-2 px-3 text-[#b8b8b8b8]  rounded md:bg-transparent  md:p-0 " >{{"navbar.brands" | translate}}</a>
-      </li>
-
-    </ul>
-  </div>
+      </ul>
+    </div>
   </div>
 </nav>
-
