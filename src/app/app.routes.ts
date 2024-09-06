@@ -1,54 +1,92 @@
-import { authenticationGGuard } from './core/guards/authentication-g.guard';
 import { Routes } from '@angular/router';
 import { AuthComponent } from './layouts/auth-layout/auth.component';
 import { BlankComponent } from './layouts/blank-layout/blank.component';
-import { HomeComponent } from './component/home/home.component';
-import { CartComponent } from './component/cart/cart.component';
-import { CategoriesComponent } from './component/categories/categories.component';
-import { BrandsComponent } from './component/brands/brands.component';
-import { LoginComponent } from './component/login/login.component';
-import { RegisterComponent } from './component/register/register.component';
-import { logoutGuard } from './core/guards/logout.guard';
-import { ShopComponent } from './component/shop/shop.component';
-import { FavoriteComponent } from './component/favorite/favorite.component';
-import { SettingComponent } from './component/setting/setting.component';
-import { ProductDetailsComponent } from './component/product-details/product-details.component';
-import { NotfoundComponent } from './component/notfound/notfound.component';
-import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
-import { AllordersComponent } from './component/allorders/allorders.component';
-import { OrdersComponent } from './component/orders/orders.component';
 
 export const routes: Routes = [
-  {path:'' ,component: AuthComponent, canActivate: [logoutGuard],
-    children:[
-      {path:'',redirectTo:'login' , pathMatch: 'full' , title: 'login'},
-      {
-        path: 'login',component: LoginComponent , title: 'login'
-
-      },
-      {
-        path:'register' , component: RegisterComponent ,title: 'register'
-      },
-      {
-        path:'forget password' , component:  ForgetPasswordComponent,title: 'forget password'
-      },
-    ]
-  },
-  {path:'' ,component: BlankComponent, canActivate: [authenticationGGuard],
+  {
+    path: '',
+    component: AuthComponent,
+    canActivate: [() => import('./core/guards/logout.guard').then(m => m.logoutGuard)],
     children: [
-      {path:'',redirectTo:'home' , pathMatch: 'full' ,title: 'home'},
-      {path:'home',component:HomeComponent ,title: 'home'},
-      {path:'shop' , component:ShopComponent , title: 'shop'},
-      {path:'categories' , component:CategoriesComponent , title: 'category'},
-      {path:'brands' , component:BrandsComponent ,title: 'brands'},
-      {path:'favorite' , component:FavoriteComponent ,title: 'favorite'},
-      {path:'setting' , component:SettingComponent ,title: 'setting'},
-      {path:'cart' , component:CartComponent ,title: 'cart'},
-      {path:'product details/:id' , component:ProductDetailsComponent ,title: 'Product Details'},
-      {path:'allorders' , component:AllordersComponent ,title: 'all orders'},
-      {path:'orders/:id' , component:OrdersComponent ,title: 'shipping address'},
+      { path: '', redirectTo: 'login', pathMatch: 'full', title: 'login' },
+      {
+        path: 'login',
+        loadComponent: () => import('./component/login/login.component').then(m => m.LoginComponent),
+        title: 'login'
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./component/register/register.component').then(m => m.RegisterComponent),
+        title: 'register'
+      },
+      {
+        path: 'forget password',
+        loadComponent: () => import('./component/forget-password/forget-password.component').then(m => m.ForgetPasswordComponent),
+        title: 'forget password'
+      },
     ]
   },
-  {path:'**' , component:NotfoundComponent ,title: 'page not found'},
-
+  {
+    path: '',
+    component: BlankComponent,
+    canActivate: [() => import('./core/guards/authentication-g.guard').then(m => m.authenticationGGuard)],
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full', title: 'home' },
+      {
+        path: 'home',
+        loadComponent: () => import('./component/home/home.component').then( c =>c.HomeComponent),
+        title: 'home'
+      },
+      {
+        path: 'shop',
+        loadComponent: () => import('./component/shop/shop.component').then(m => m.ShopComponent),
+        title: 'shop'
+      },
+      {
+        path: 'categories',
+        loadComponent: () => import('./component/categories/categories.component').then(m => m.CategoriesComponent),
+        title: 'category'
+      },
+      {
+        path: 'brands',
+        loadComponent: () => import('./component/brands/brands.component').then(m => m.BrandsComponent),
+        title: 'brands'
+      },
+      {
+        path: 'favorite',
+        loadComponent: () => import('./component/favorite/favorite.component').then(m => m.FavoriteComponent),
+        title: 'favorite'
+      },
+      {
+        path: 'setting',
+        loadComponent: () => import('./component/setting/setting.component').then(m => m.SettingComponent),
+        title: 'setting'
+      },
+      {
+        path: 'cart',
+        loadComponent: () => import('./component/cart/cart.component').then(m => m.CartComponent),
+        title: 'cart'
+      },
+      {
+        path: 'product details/:id',
+        loadComponent: () => import('./component/product-details/product-details.component').then(m => m.ProductDetailsComponent),
+        title: 'Product Details'
+      },
+      {
+        path: 'allorders',
+        loadComponent: () => import('./component/allorders/allorders.component').then(m => m.AllordersComponent),
+        title: 'all orders'
+      },
+      {
+        path: 'orders/:id',
+        loadComponent: () => import('./component/orders/orders.component').then(m => m.OrdersComponent),
+        title: 'shipping address'
+      },
+    ]
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./component/notfound/notfound.component').then(m => m.NotfoundComponent),
+    title: 'page not found'
+  },
 ];

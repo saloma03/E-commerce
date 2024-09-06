@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Token } from '@angular/compiler';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environment/environment';
 
@@ -12,6 +11,7 @@ export class FavoriteService {
   private readonly _HttpClient = inject(HttpClient);
   constructor() { }
 
+  numOfFav:WritableSignal<number> = signal(0);
 
   addToWishList(id:string):Observable<any>{
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/wishlist`,

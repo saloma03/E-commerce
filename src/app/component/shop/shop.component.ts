@@ -1,14 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Icategory } from '../../core/interfaces/icategory';
 import { CategoriesService } from '../../core/services/categories.service';
 import { ProductService } from '../../core/services/product.service';
-import { FlowbiteService } from '../../core/services/flowbite.service';
-import { Iproduct } from '../../core/interfaces/iproduct';
-import { Icategory } from '../../core/interfaces/icategory';
-import { ProductComponent } from "../product/product.component";
 import { DropdownComponent } from "../dropdown/dropdown.component";
-import { FormsModule } from '@angular/forms';
+import { ProductComponent } from "../product/product.component";
+import { Iproduct } from './../../core/interfaces/iproduct';
 import { SearchPipe } from '../../core/pipes/search.pipe';
 
 @Component({
@@ -16,71 +13,49 @@ import { SearchPipe } from '../../core/pipes/search.pipe';
   standalone: true,
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
-  imports: [ProductComponent, DropdownComponent ,FormsModule , SearchPipe]
+  imports: [ProductComponent, DropdownComponent, FormsModule , SearchPipe],
 })
 export class ShopComponent implements OnInit {
   private readonly _CategoriesService = inject(CategoriesService);
   private readonly _ProductService = inject(ProductService);
 
-  catList: Icategory[] = [];
-  catName!:string[];
-  productList: Iproduct[] = [];
-  filteredList: Iproduct[] = [];
-  sortedList:Iproduct[] = [];
-  textSearch:string = "";
+  catList:WritableSignal<Icategory[]> = signal<Icategory[]>([]);
+  catName:string[] = [];
 
-  dropdowns : any = {
-    statusDropdown: false,
-    filterDropdown: false,
 
-  }
+  productList:WritableSignal<Iproduct[]> = signal([]); // This holds the original product list
+  filteredProductList:WritableSignal<Iproduct[]> = signal<Iproduct[]>([]); // This holds the filtered list
+  textSearch:WritableSignal<string> = signal<string>('');
+
 
   ngOnInit(): void {
-    // this._FlowbiteService.loadFlowbite((flow) => {});
-
     this._CategoriesService.getCategories().subscribe({
       next: (res) => {
-        this.catList = res.data;
-        this.catName = this.catList.map(category => category.name);
-      }
+        this.catList.set(res.data);
+        this.catName = this.catList().map((category) => category.name);
+      },
     });
 
     this._ProductService.getAllProduct().subscribe({
       next: (res) => {
-        this.productList = res.data;
-        this.filterProduct("Men's Fashion");
-      }
+        this.productList.set(res.data);
+
+        this.filteredProductList.set(this.productList()); // Initialize with all products
+      },
     });
 
-    // this._Router.events.pipe(
-    //   filter(event => event instanceof NavigationEnd)
-    // ).subscribe(() => {
-    //   this._FlowbiteService.loadFlowbite((flow) => {});
-    // });
+
   }
 
   filterProduct(categoryName: string) {
-    this.filteredList = this.productList.filter((item) => {
-      return item.category.name.includes(categoryName);
-    });
+    const filtered = this.productList().filter((item) =>
+      item.category.name.includes(categoryName)
+    );
+
+    this.filteredProductList.set(filtered); // Set the filtered products to the signal
+    console.log(this.filteredProductList());
   }
-
-  updateFilteredList(filteredProducts: Iproduct[]) {
-    this.sortedList = filteredProducts;
+  onFilterProducts(sortedProducts: Iproduct[]): void {
+    this.filteredProductList.set([...sortedProducts]); // Update the displayed products
   }
-
-
-  // ngAfterViewChecked(): void {
-  //   //Called after every check of the component's or directive's content.
-  //   //Add 'implements AfterContentChecked' to the class.
-  //   this._FlowbiteService.loadFlowbite((flow) => {});
-
-  // }
-
-
-
-
-
-
 }
-

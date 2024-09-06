@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, WritableSignal } from '@angular/core';
 import { Iproduct } from '../../core/interfaces/iproduct';
 
 @Component({
@@ -12,9 +12,9 @@ export class DropdownComponent {
   @Input() mId!: string;
   @Input() buttonName!: string;
   @Input() menu!: string[];
-  @Input() p!: Iproduct[];
+  @Input() p!: WritableSignal<Iproduct[]>; // Pass product list as a signal
 
-  @Output() filteredProducts = new EventEmitter<Iproduct[]>();
+  @Output() filteredProducts = new EventEmitter<Iproduct[]>(); // Emit sorted products to parent
 
   dropdowns: boolean = false;
 
@@ -23,36 +23,24 @@ export class DropdownComponent {
   }
 
   filter(category: string): void {
-    let sortedProducts: Iproduct[] = [];
+    let sortedProducts: Iproduct[] = [...this.p()];
 
     if (category === 'Top Price') {
-      sortedProducts = this.p.sort((a, b) => b.price - a.price);
+      sortedProducts = sortedProducts.sort((a, b) => b.price - a.price);
     } else if (category === 'Low Price') {
-      sortedProducts = this.p.sort((a, b) => a.price - b.price);
+      sortedProducts = sortedProducts.sort((a, b) => a.price - b.price);
     } else if (category === 'By Sold') {
-      sortedProducts = this.p.sort((a, b) => b.sold - a.sold);
-    }else if(category == 'all'){
-      sortedProducts = this.p.filter((item) => {
-        console.log(item.category.name.toLowerCase() ,  category)
-
-        return item.category.name.toLowerCase().includes("");
-      });
-      console.log(sortedProducts)
-      this.filteredProducts.emit(sortedProducts);
-
-
-    }
-    else {
-      sortedProducts = this.p.filter((item) => {
-        console.log(item.category.name.toLowerCase() ,  category)
-
-        return item.category.name.toLowerCase().includes(category.toLowerCase());
-      });
-      console.log(sortedProducts)
-      this.filteredProducts.emit(sortedProducts);
-
+      sortedProducts = sortedProducts.sort((a, b) => b.sold - a.sold);
+    } else if (category == 'all') {
+      sortedProducts = [...this.p()];
+    } else {
+      sortedProducts = sortedProducts.filter((item) =>
+        item.category.name.includes(category)
+      );
     }
 
     this.filteredProducts.emit(sortedProducts);
   }
+
+
 }

@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, inject, Input, Output, output} from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, inject, Input, Output, output, signal, WritableSignal } from '@angular/core';
 import { Iproduct } from '../../core/interfaces/iproduct';
 import { SlicenamePipe } from '../../core/pipes/slicename.pipe';
 import { CurrencyPipe } from '@angular/common';
@@ -18,33 +18,22 @@ import swal from 'sweetalert';
 })
 export class ProductComponent {
 
-  private readonly  _cartService = inject(CartService);
+  private readonly  _CartService = inject(CartService);
   private readonly  _FavoriteService = inject(FavoriteService);
   private readonly  _ToastrService = inject(ToastrService);
 
+
   @Input() isFromFavorite ?:boolean = false;
-
-  // productList:Iproduct[] = [];
-
-  // ngOnInit(): void {
-  //     this._ProductService.getAllProduct().subscribe(
-  //           {
-  //             next: (res)=>{
-  //               this.productList = res.data;
-  //             },
-  //             error:(err) =>{
-  //               console.log(err);
-  //             }
-  //           }
-  //     )
-  // }
 
   @Input() product !: Iproduct;
 
   addToCart(id:string):void{
-      this._cartService.addProductToCart(id).subscribe({
+      this._CartService.addProductToCart(id).subscribe({
         next:(res)=>{
-          console.log(res);
+          // console.log(res);
+          this._CartService.numOfCart.set(res.numOfCartItems)
+          console.log("here cart num" , this._CartService.numOfCart())
+
           this._ToastrService.success(
             res.message
           )
@@ -54,7 +43,8 @@ export class ProductComponent {
   addToFavorite(id:string):void{
       this._FavoriteService.addToWishList(id).subscribe({
         next:(res)=>{
-          console.log(res);
+          console.log("aaaadddd",res)
+          this._FavoriteService.numOfFav.set(res.data.length)
           this._ToastrService.success(
             res.message
           )
@@ -65,12 +55,16 @@ export class ProductComponent {
     swal({
       title: "Are you sure?",
       icon: "warning",
-      buttons: ["Cancel", "Delete"], // Use an array for button labels
+      buttons: ["Cancel", "Delete"],
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
         this._FavoriteService.deleteFromWishList(id).subscribe({
           next: (res) => {
+            console.log(res)
+            this.product = res.data;
+            this._FavoriteService.numOfFav.set(res.data.length)
+
             this._ToastrService.success(res.message);
           }
         });

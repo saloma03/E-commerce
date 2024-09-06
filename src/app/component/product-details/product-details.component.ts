@@ -1,5 +1,5 @@
 import { Iproduct } from './../../core/interfaces/iproduct';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyPipe, NgClass } from '@angular/common';
@@ -28,7 +28,6 @@ export class ProductDetailsComponent implements OnInit{
   getMoreDetails : boolean = false;
   getReviews : boolean = true;
   isloading:boolean = false;
-
   ngOnInit(): void {
     this._ActivatedRoute.paramMap.subscribe(
       (p)=>{
@@ -37,10 +36,7 @@ export class ProductDetailsComponent implements OnInit{
           productId).subscribe({
           next: (res)=>{
             this.productDetails = res.data;
-            console.log(this.productDetails)
-          },
-          error:(err)=>{
-            console.log(err)
+            // console.log(this.productDetails)
           }
         })
       })
@@ -55,14 +51,9 @@ export class ProductDetailsComponent implements OnInit{
         })
       ).subscribe({
         next: (res)=>{
+          this._CartService.numOfCart.set(res.numOfCartItems)
           this.isloading = false;
-            console.log(res);
-
-        },
-        error: (err)=>{
-          this.isloading = false;
-
-          console.log(err);
+            // console.log(res);
 
         }
       })
@@ -73,7 +64,9 @@ export class ProductDetailsComponent implements OnInit{
     if(this.favorite){
       this._FavoriteService.addToWishList(id).subscribe({
         next:(res)=>{
-          console.log(res)
+          this._FavoriteService.numOfFav.set(res.count)
+
+          // console.log(res)
         }
       })
     }

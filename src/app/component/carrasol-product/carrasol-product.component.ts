@@ -1,8 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Iproduct } from '../../core/interfaces/iproduct';
 import { ProductService } from '../../core/services/product.service';
 import { ProductComponent } from "../product/product.component";
 import { Subscription } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-carrasol-product',
@@ -14,7 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class CarrasolProductComponent implements OnInit , OnDestroy{
   private readonly _ProductService = inject(ProductService);
-
+  private readonly _PLATFORM_ID = inject(PLATFORM_ID)
   @Input() startSlice! : number;
   @Input() endSlice! : number;
 
@@ -25,6 +26,7 @@ export class CarrasolProductComponent implements OnInit , OnDestroy{
 
 
   ngOnInit(): void {
+
       this.allProduct = this._ProductService.getAllProduct().subscribe(
             {
               next: (res)=>{
@@ -35,20 +37,26 @@ export class CarrasolProductComponent implements OnInit , OnDestroy{
               }
             }
       )
-      window.addEventListener('resize', this.updateSlidesPerView.bind(this)); 
+      if(isPlatformBrowser( this._PLATFORM_ID)){
+        window.addEventListener('resize', this.updateSlidesPerView.bind(this));
+
+      }
 
   }
   private updateSlidesPerView(): void {
-    const screenWidth = window.innerWidth;
+    if(isPlatformBrowser( this._PLATFORM_ID)){
+      const screenWidth = window.innerWidth;
 
-    if (screenWidth >= 1200) {
-      this.slidesPerView = 4;
-    } else if (screenWidth >= 992) {
-      this.slidesPerView = 3;
-    } else if (screenWidth >= 768) {
-      this.slidesPerView = 2;
-    } else {
-      this.slidesPerView = 1;
+      if (screenWidth >= 1200) {
+        this.slidesPerView = 4;
+      } else if (screenWidth >= 992) {
+        this.slidesPerView = 3;
+      } else if (screenWidth >= 768) {
+        this.slidesPerView = 2;
+      } else {
+        this.slidesPerView = 1;
+      }
+
     }
   }
 

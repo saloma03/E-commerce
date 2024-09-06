@@ -1,11 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CartService } from '../../core/services/cart.service';
-import { ICart } from '../../core/interfaces/icart';
 import { CurrencyPipe, NgClass } from '@angular/common';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FavoriteService } from '../../core/services/favorite.service';
-import swal from 'sweetalert';
 import { ToastrService } from 'ngx-toastr';
+import swal from 'sweetalert';
+import { ICart } from '../../core/interfaces/icart';
+import { CartService } from '../../core/services/cart.service';
+import { FavoriteService } from '../../core/services/favorite.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -17,20 +17,20 @@ export class CartComponent implements OnInit{
 
 
   cartDetails : ICart  = {} as ICart;
-  numberOfCartItems:number = 0;
   cartId : string | null = null;
   clearing : boolean = false;
-
   private readonly _CartService = inject(CartService);
   private readonly _ToastrService = inject(ToastrService);
   private readonly _FavoriteService = inject(FavoriteService);
+  numberOfCartItems:Signal<number> = computed(()=> this._CartService.numOfCart());
 
 
   ngOnInit(): void {
     this._CartService.getUserCart().subscribe({
       next: (res)=>{
         console.log(res);
-        this.numberOfCartItems = res.numOfCartItems;
+        this._CartService.numOfCart.set(res.numOfCartItems)
+        // this.numberOfCartItems.set(res.numOfCartItems) ;
         this.cartId = res.cartId;
           this.cartDetails = res.data;
       },
@@ -50,8 +50,8 @@ export class CartComponent implements OnInit{
     }).then((willDelete) => {
       this._CartService.removeProductFromCart(id).subscribe({
         next: (res)=>{
+          this._CartService.numOfCart.set(res.numOfCartItems)
           this._ToastrService.success(res.message)
-          this.numberOfCartItems = res.numOfCartItems;
           this.cartId = res.cartId;
 
           this.cartDetails = res.data;
@@ -64,7 +64,7 @@ export class CartComponent implements OnInit{
   updateQuantity(id:string , countNumber : number){
     this._CartService.updateProductQuantity(id,countNumber ).subscribe({
       next: (res)=>{
-        this.numberOfCartItems = res.numOfCartItems;
+        this._CartService.numOfCart.set(res.numOfCartItems)
         this._ToastrService.success("count updated")
         this.cartId = res.cartId;
         this.cartDetails = res.data;
@@ -87,7 +87,8 @@ export class CartComponent implements OnInit{
       this._CartService.clearCart().subscribe(
         {
           next:(res)=>{
-            this.numberOfCartItems = 0;
+            this._CartService.numOfCart.set(0)
+
             this._ToastrService.success(res.message)
 
             this.clearing = false;

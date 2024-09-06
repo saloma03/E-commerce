@@ -5,18 +5,18 @@
   </video>
 </div>
 
-<app-title class="lg:mt-0 py-10">
+<app-title ngSkipHydration class="lg:mt-0 py-10">
   <p>categories</p>
   <h3>categories</h3>
 </app-title>
-<app-category-slider></app-category-slider>
-<app-title>
+<app-category-slider ngSkipHydration></app-category-slider>
+<app-title ngSkipHydration>
   <p>new arrival</p>
   <h3>new arrival</h3>
 </app-title>
-<app-carrasol-product [startSlice]="25" [endSlice]="33"></app-carrasol-product>
+<app-carrasol-product  [startSlice]="25" [endSlice]="33"></app-carrasol-product>
 <div class="my-5">
-  <app-title >
+  <app-title ngSkipHydration>
     <p>featured products</p>
     <h3>featured products</h3>
   </app-title>

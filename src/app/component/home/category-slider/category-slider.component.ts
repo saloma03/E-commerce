@@ -28,10 +28,7 @@ export class CategorySliderComponent implements OnInit , OnDestroy{
       {
         next:(res)=>{
           this.categoryList = res.data;
-          console.log(this.categoryList);
-        },
-        error:(err)=>{
-          console.log(err)
+          // console.log(this.categoryList);
         }
       }
     )

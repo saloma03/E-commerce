@@ -16,7 +16,7 @@
                 </div>
             </div>
                 <div class="py-3 px-3 bg-[#f4f4f4] mt-4">
-                    <p class="text-gray-900 font-bold uppercase"> all items ({{numberOfCartItems}})</p>
+                    <p class="text-gray-900 font-bold uppercase"> all items ({{numberOfCartItems()}})</p>
                 </div>
             </div>
             <div class="lg:col-span-4 col-span-12 lg:order-1 order-3 lg:mt-0 mt-3  px-3">
@@ -32,15 +32,15 @@
                     Already saved {{cartDetails.totalCartPrice }}
                   </span>
                 </div>
-                <button class="py-2 text-center w-full bg-gray-900 text-white font-bold disabled:bg-gray-700" [routerLink]="['/orders',cartId]" [disabled]="numberOfCartItems ==0">
-                    Check out now ({{numberOfCartItems}})
+                <button class="py-2 text-center w-full bg-gray-900 text-white font-bold disabled:bg-gray-700" [routerLink]="['/orders',cartId]" [disabled]="numberOfCartItems() ==0">
+                    Check out now ({{numberOfCartItems()}})
                     <br>
                     <span class="text-orange-500 text-thin"> <i class="fa-solid fa-fire fa-xs "></i> almost sold out </span>
                 </button>
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-8 mt-3 px-3">
-              @if (numberOfCartItems !== 0) {
+              @if (numberOfCartItems() !== 0) {
                 <div class="py-3 px-3 bg-[#f4f4f4]">
                   <div class="flex items-center justify-between">
                     <h5 class=" capitalize font-bold text-sm"><i class="fa-solid fa-store fa-xl"></i> fashionfurnish sport lifespree ></h5>

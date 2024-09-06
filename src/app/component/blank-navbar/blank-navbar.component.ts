@@ -1,72 +1,84 @@
-import { ChangeDetectorRef, Component, ElementRef, inject, NgZone, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { FlowbiteService } from '../../core/services/flowbite.service';
+import { isPlatformBrowser, NgClass } from '@angular/common';
+import { ChangeDetectorRef, Component, computed, ElementRef, inject, NgZone, OnInit, PLATFORM_ID, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthenticationService } from '../../core/services/authentication.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CartService } from '../../core/services/cart.service';
+import { FlowbiteService } from '../../core/services/flowbite.service';
 import { MyTranslationService } from '../../core/services/mytranslate.service';
+import { FavoriteService } from '../../core/services/favorite.service';
 
 @Component({
   selector: 'app-blank-navbar',
   standalone: true,
-  imports: [RouterLink,RouterLinkActive , TranslateModule
-  ],
+  imports: [RouterLink, RouterLinkActive, TranslateModule , NgClass],
   templateUrl: './blank-navbar.component.html',
-  styleUrl: './blank-navbar.component.scss'
+  styleUrls: ['./blank-navbar.component.scss']
 })
-export class BlankNavbarComponent implements OnInit{
-    constructor(private _FlowbiteService:FlowbiteService , private zone: NgZone ,private cdr: ChangeDetectorRef){
+export class BlankNavbarComponent implements OnInit {
+  private _PLATFORM_ID = inject(PLATFORM_ID);
+  private _Router = inject(Router);
+  private _AuthenticationService = inject(AuthenticationService);
+  private _MyTranslationService = inject(MyTranslationService);
+  private _CartService = inject(CartService);
+  private _FavoriteService = inject(FavoriteService);
 
-    }
-    private _PLATFORM_ID = inject(PLATFORM_ID);
-    private _Router = inject(Router);
-    private _AuthenticationService = inject(AuthenticationService);
-    private _MyTranslationService = inject(MyTranslationService);
+  numberOfCart: Signal<number> = computed(() => this._CartService.numOfCart());
+  numberOfFAvorite: Signal<number> = computed(() => this._FavoriteService.numOfFav());
 
-    drawerVisible : boolean = false;
-    logout():void{
-      if(isPlatformBrowser(this._PLATFORM_ID)){
-        localStorage.removeItem('userToken');
+  isMenuOpen: WritableSignal<boolean> = signal(false);
+  drawerVisible: boolean = false;
+
+  constructor(
+    private _FlowbiteService: FlowbiteService,
+    private zone: NgZone,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this._FlowbiteService.loadFlowbite((flow) => {});
+
+    this._CartService.getUserCart().subscribe({
+      next: (res)=> {
+        this._CartService.numOfCart.set(res.numOfCartItems);
       }
-      this._AuthenticationService.userData = null;
-      this._Router.navigate(['/login']);
-    }
-    ngOnInit(): void {
-        this._FlowbiteService.loadFlowbite((flowbit)=>{})
-    }
+    })
 
-    showSearchBar(){
-      this.drawerVisible = !this.drawerVisible;
-    }
-
-    @ViewChild('drawerNavigation') drawerNavigation!: ElementRef;
-
-    openDrawer() {
-      this.drawerNavigation.nativeElement.classList.add('open');
-    }
-
-    closeDrawer() {
-      this.drawerNavigation.nativeElement.classList.remove('open');
-    }
-
-    translate(lang: string) {
-      // this.zone.run(() => {
-      //     this._MyTranslationService.changeLang(lang);
-      //     this.cdr.markForCheck(); // Ensure Angular picks up the changes
-      // });
-      console.log('Button clicked!');
-
-      if (lang == 'en') {
-        console.log('english will translate!')
-        this._MyTranslationService.changeLang(lang);
-
-      }else{
-        console.log('arabic will translate!')
-        this._MyTranslationService.changeLang(lang);
-
+    this._FavoriteService.getUserWishList().subscribe({
+      next:(res)=>{
+        console.log("favvvov" , res)
+        this._FavoriteService.numOfFav.set(res.count);
       }
-
+    })
   }
 
+  logout(): void {
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      localStorage.removeItem('userToken');
+    }
+    this._AuthenticationService.userData = null;
+    this._Router.navigate(['/login']);
+  }
 
+  showSearchBar() {
+    this.drawerVisible = !this.drawerVisible;
+  }
+
+  @ViewChild('drawerNavigation') drawerNavigation!: ElementRef;
+
+  openDrawer() {
+    this.drawerNavigation.nativeElement.classList.add('open');
+  }
+
+  closeDrawer() {
+    this.drawerNavigation.nativeElement.classList.remove('open');
+  }
+
+  translate(lang: string) {
+    this._MyTranslationService.changeLang(lang);
+    this.cdr.markForCheck(); // Ensure Angular picks up the changes
+  }
+  openMenue() : void{
+    this.isMenuOpen.set(!this.isMenuOpen())
+  }
 }

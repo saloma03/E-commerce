@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { FlowbiteService } from '../../core/services/flowbite.service';
 import { CategoriesService } from '../../core/services/categories.service';
 import { Icategory } from '../../core/interfaces/icategory';
@@ -16,11 +16,12 @@ import { DropdownComponent } from "../dropdown/dropdown.component";
   styleUrl: './favorite.component.scss'
 })
 export class FavoriteComponent  implements OnInit{
-  categoryList !: Icategory[];
-  categoryTitles!: string[];
+  categoryList :WritableSignal<Icategory[]> = signal<Icategory[]>([]);
+  categoryTitles:WritableSignal<string[]> = signal<string[]>([]);
 
-  favoriteProduct !: Iproduct[];
-  sortedList !: Iproduct[];
+  favoriteProduct:WritableSignal<Iproduct[]> = signal<Iproduct[]>([]);
+  sortedList:WritableSignal<Iproduct[]> = signal<Iproduct[]>([]);
+
   constructor(private _FlowbiteService:FlowbiteService , private _CategoriesService : CategoriesService , private _FavoriteService:FavoriteService){
 
   }
@@ -28,20 +29,22 @@ export class FavoriteComponent  implements OnInit{
     this._FlowbiteService.loadFlowbite((flow)=>{});
     this._CategoriesService.getCategories().subscribe({
       next:(res)=>{
-        this.categoryList = res.data;
-        this.categoryTitles = this.categoryList.map(category => category.name);
-        console.log(this.categoryTitles);
+        this.categoryList.set(res.data) ;
+        this.categoryTitles.set(this.categoryList().map(category => category.name));
       }
     })
     this._FavoriteService.getUserWishList().subscribe({
       next:(res)=>{
-        this.favoriteProduct = res.data;
-        this.sortedList = this.favoriteProduct;
+        this.favoriteProduct.set(res.data) ;
+        this.sortedList.set(this.favoriteProduct()) ;
       }
     })
 
   }
-  updateFilteredList(filteredProducts: Iproduct[]) {
-    this.sortedList = filteredProducts;
+
+  onFilterProducts(sortedProducts: Iproduct[]): void {
+    this.sortedList.set([...sortedProducts]); // Update the displayed products
   }
+
+
 }

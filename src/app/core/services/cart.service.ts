@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environment/environment';
 
@@ -9,6 +9,7 @@ import { environment } from '../environment/environment';
 export class CartService {
 
   private readonly _HttpClient = inject(HttpClient);
+  numOfCart:WritableSignal<number> = signal(0);
 
   constructor() { }
 
