@@ -5,29 +5,6 @@ import { BlankComponent } from './layouts/blank-layout/blank.component';
 export const routes: Routes = [
   {
     path: '',
-    component: AuthComponent,
-    canActivate: [() => import('./core/guards/logout.guard').then(m => m.logoutGuard)],
-    children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full', title: 'login' },
-      {
-        path: 'login',
-        loadComponent: () => import('./component/login/login.component').then(m => m.LoginComponent),
-        title: 'login'
-      },
-      {
-        path: 'register',
-        loadComponent: () => import('./component/register/register.component').then(m => m.RegisterComponent),
-        title: 'register'
-      },
-      {
-        path: 'forget password',
-        loadComponent: () => import('./component/forget-password/forget-password.component').then(m => m.ForgetPasswordComponent),
-        title: 'forget password'
-      },
-    ]
-  },
-  {
-    path: '',
     component: BlankComponent,
     canActivate: [() => import('./core/guards/authentication-g.guard').then(m => m.authenticationGGuard)],
     children: [
@@ -84,6 +61,30 @@ export const routes: Routes = [
       },
     ]
   },
+  {
+    path: '',
+    component: AuthComponent,
+    // canActivate: [() => import('./core/guards/logout.guard').then(m => m.logoutGuard)],
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full', title: 'login' },
+      {
+        path: 'login',
+        loadComponent: () => import('./component/login/login.component').then(m => m.LoginComponent),
+        title: 'login'
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./component/register/register.component').then(m => m.RegisterComponent),
+        title: 'register'
+      },
+      {
+        path: 'forget password',
+        loadComponent: () => import('./component/forget-password/forget-password.component').then(m => m.ForgetPasswordComponent),
+        title: 'forget password'
+      },
+    ]
+  },
+
   {
     path: '**',
     loadComponent: () => import('./component/notfound/notfound.component').then(m => m.NotfoundComponent),

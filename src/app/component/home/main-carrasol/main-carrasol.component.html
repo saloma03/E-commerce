@@ -4,13 +4,14 @@
     <swiper-slide >
       <div style="background-image: url(./assets/main-slider/banner-1.png);" class=" h-screen bg-cover bg-center "  >
         <div class="py-20 flex flex-col justify-center items-center text-white w-10/12 mx-auto">
-              <h1 class="pt-20 text-[200px] font-semibold"> Fashion style </h1>
+              <h1 class="pt-20 text-[200px] font-semibold"> {{"navbar.FashionFurnish" | translate}} </h1>
               <div class="flex gap-5 items-center justify-center">
-                <button class="mt-4 py-3 px-8 rounded-2xl border-2 border-white bg-transparent hover:bg-white hover:text-black hover:scale-110 transition-all duration-100">
-                  Shop Now
+                <button routerLink="/shop" class="mt-4 py-3 px-8 rounded-2xl border-2 border-white bg-transparent hover:bg-white hover:text-black hover:scale-110 transition-all duration-100">
+                  {{"mainCarrasol.Shop Now" | translate}}
                 </button>
                 <p >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>Minus doloribus quibusdam pariatur repellendus. Assumenda, quibusdam ipsam similique aut magni, excepturi dignissimos adipisci deserunt,<br> explicabo eius delectus recusandae quis sed esse.
+                  {{ 'mainCarrasol.Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus doloribus quibusdam pariatur repellendus. Assumenda, quibusdam ipsam similique aut magni, excepturi dignissimos adipisci deserunt, explicabo eius delectus recusandae quis sed esse.' | translate }}
+
                 </p>
               </div>
         </div>
@@ -19,8 +20,8 @@
     <swiper-slide>
       <div style="background-image: url(./assets/main-slider/banner-3.png);" class="h-screen  bg-cover bg-center">
         <div class="py-20 flex items-end  h-full justify-center  text-black">
-          <button class="py-3 px-5 rounded-2xl border-2 border-black bg-transparent hover:bg-white hover:border-white hover:text-black hover:scale-110 transition-all duration-100">
-            Shop Now
+          <button routerLink="/shop" class="py-3 px-5 rounded-2xl border-2 border-black bg-transparent hover:bg-white hover:border-white hover:text-black hover:scale-110 transition-all duration-100">
+            {{"mainCarrasol.Shop Now" | translate}}
           </button>
         </div>
       </div>

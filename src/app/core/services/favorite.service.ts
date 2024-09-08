@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environment/environment';
+import { Iproduct } from '../interfaces/iproduct';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavoriteService {
+
+  ProductFavList: WritableSignal<Iproduct[]> = signal([]);
 
   private readonly _HttpClient = inject(HttpClient);
   constructor() { }

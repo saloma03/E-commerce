@@ -6,19 +6,21 @@
 </div>
 
 <app-title ngSkipHydration class="lg:mt-0 py-10">
-  <p>categories</p>
-  <h3>categories</h3>
+  <p>{{ 'navbar.categories' | translate }}</p>
+  <h3>{{ 'navbar.categories' | translate }}</h3>
 </app-title>
 <app-category-slider ngSkipHydration></app-category-slider>
+
 <app-title ngSkipHydration>
-  <p>new arrival</p>
-  <h3>new arrival</h3>
+  <p>{{ 'new arrival' | translate }}</p>
+  <h3>{{ 'new arrival' | translate }}</h3>
 </app-title>
 <app-carrasol-product  [startSlice]="25" [endSlice]="33"></app-carrasol-product>
+
 <div class="my-5">
   <app-title ngSkipHydration>
-    <p>featured products</p>
-    <h3>featured products</h3>
+    <p>{{ 'featured products' | translate }}</p>
+    <h3>{{ 'featured products' | translate }}</h3>
   </app-title>
 </div>
 <app-carrasol-product [startSlice]="15" [endSlice]="20"></app-carrasol-product>
@@ -26,29 +28,27 @@
 <div class="bg-gray-100">
   <div class="py-8 px-5">
     <div class="flex justify-center items-center flex-col">
-      <h3 class="pt-5 text-3xl font-bold text-gray-900">The Backstory</h3>
-      <p class="lg:px-72 px-20 text-center py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, dicta esse voluptas labore accusamus repudiandae delectus tempora quia ullam et. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima, dolore.</p>
-      <button class="cursor-pointer bg-gray-900 px-5 py-3 rounded-lg text-white hover:scale-105 hover:text-gray-400 transition duration-300">learn about our journy <i class="px-2 fa-solid fa-arrow-right"></i></button>
+      <h3 class="pt-5 text-3xl font-bold text-gray-900">{{ 'The Backstory' | translate }}</h3>
+      <p class="lg:px-72 px-20 text-center py-4">{{ 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, dicta esse voluptas labore accusamus repudiandae delectus tempora quia ullam et.' | translate }}</p>
+      <button class="cursor-pointer bg-gray-900 px-5 py-3 rounded-lg text-white hover:scale-105 hover:text-gray-400 transition duration-300">{{ 'learn about our journy' | translate }} <i class="px-2 fa-solid fa-arrow-right"></i></button>
       <iframe class="py-5 sm:w-28 lg:w-[900px]" height="500" src="https://www.youtube.com/embed/JkAyxSqDgcg?si=uDbQucfg30jYjzPF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
-
   </div>
 </div>
 
 <div class="py-20">
-  <div class="bg-[url('./assets/350928773.jpg')] bg-cover bg-center " >
-      <div class="flex justify-center items-center text-white flex-col py-10">
-          <h3 class="capitalize text-lg font-bold py-5">join our newsettlers</h3>
-          <div class="grid lg:grid-cols-4 md:grid-cols-1 gap-2 py-5">
-              <input type="email" class="lg:col-span-3 focus:outline-none focus:border-none flex-grow-1 rounded-3xl bg-white placeholder:text-gray-500 py-3 px-5" placeholder="Enter Your Email address">
-              <button class="cursor-pointer flex-grow-0 bg-gray-900 px-5 py-3 rounded-3xl text-white hover:scale-105 hover:text-gray-400 transition duration-300">subscribe now <i class="px-2 fa-solid fa-arrow-right"></i></button>
-          </div>
-          <div class="py-5">
-            <p class="font-extrabold ">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, cumque.
-            </p>
-
-          </div>
+  <div class="bg-[url('./assets/350928773.jpg')] bg-cover bg-center">
+    <div class="flex justify-center items-center text-white flex-col py-10">
+      <h3 class="capitalize text-lg font-bold py-5">{{ 'join our newsettlers' | translate }}</h3>
+      <div class="grid lg:grid-cols-4 md:grid-cols-1 gap-2 py-5">
+        <input type="email" class="lg:col-span-3 focus:outline-none focus:border-none flex-grow-1 rounded-3xl bg-white placeholder:text-gray-500 py-3 px-5" placeholder="{{ 'Enter Your Email address' | translate }}">
+        <button class="cursor-pointer flex-grow-0 bg-gray-900 px-5 py-3 rounded-3xl text-white hover:scale-105 hover:text-gray-400 transition duration-300">{{ 'subscribe now' | translate }} <i class="px-2 fa-solid fa-arrow-right"></i></button>
       </div>
+      <div class="py-5">
+        <p class="font-extrabold">
+          {{ 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, cumque.' | translate }}
+        </p>
+      </div>
+    </div>
   </div>
 </div>

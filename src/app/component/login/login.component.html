@@ -1,5 +1,5 @@
 <section class="text-lg bg-[#F4F4F4] shadow-lg rounded-md p-2  my-5">
-  <h1 class="text-red-950 font-bold py-4" >Login Now:</h1>
+  <h1 class="text-red-950 font-bold py-4" >{{"login.Login Now" | translate}}</h1>
 
 
 
@@ -21,15 +21,15 @@
         <label
         for="floating_email"
         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-        Email address
+        {{"login.Email address" | translate}}
         </label>
 
         @if (loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)) {
           <div class="mt-1 text-red-600 hover:text-red-800 text-sm">
               @if (loginForm.get('email')?.getError('required')) {
-                <p>your Email is required</p>
+                <p>{{"login.your Email is required" | translate}}</p>
               }@else if(loginForm.get('email')?.getError('email')){
-                <p>please enter valid email</p>
+                <p>{{"login.please enter valid email" | translate}}</p>
               }
           </div>
         }
@@ -41,23 +41,23 @@
         'border-green-400': !loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty),
         }"
         type="password" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-900 focus:outline-none focus:ring-0 focus:border-red-900 peer" placeholder=" " required formControlName="password" />
-      <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+      <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-900 peer-focus:dark:text-red-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">{{"login.Password"|translate}}</label>
       @if (loginForm.get('password')?.errors && (loginForm.get('password')?.touched||loginForm.get('password')?.dirty)) {
         <div class="mt-1 text-red-500 hover:text-red-800 text-sm">
           @if (loginForm.get('password')?.getError('required')) {
             <p>
-              password is required
+              {{"login.password is required" | translate}}
             </p>
           }@else if(loginForm.get('password')?.getError('pattern')){
-            <p>password should be 6 char or more</p>
+            <p>{{"login.password should be 6 char or more" | translate}}</p>
           }
         </div>
       }
   </div>
   <div class="flex justify-end items-center gap-2">
-    <p class="underline font-thin text-sm cursor-pointer" routerLink="/forget password" >did you forget the password?</p>
+    <p class="underline font-thin text-sm cursor-pointer" routerLink="/forget password" >{{"login.did you forget the password" |translate}}</p>
     <button [disabled]="loginForm.invalid || isLoading" type="submit" class="disabled:bg-gray-500 text-white bg-gray-900 hover:bg-red-950 focus:outline-none focus:ring-[rgba(69 ,10, 10,0.5 )] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-900 dark:hover:bg-red-900 dark:focus:ring-red-950">
-      login
+      {{"login.login"|translate}}
       @if (isLoading ) {
         <span><i class="fas fa-spin fa-spinner"></i></span>
       }

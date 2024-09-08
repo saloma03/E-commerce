@@ -1,22 +1,48 @@
 {
-  "navbar":{
+  "navbar": {
     "FashionFurnish": "ملابس عصرية",
     "home": "الرئيسية",
     "categories": "الاقسام",
     "shop": "التسوق",
     "brands": "البراندات",
     "Logout": "تسجيل الخروج",
-    "english":"انجليزي",
-    "arabic":"عربي",
-    "setting":"الاعدادات",
-    "CloseMenu":"اغلاق النافذة",
-    "UpdateProfile":"تحديث معلومات الحساب",
+    "english": "انجليزي",
+    "arabic": "عربي",
+    "setting": "الاعدادات",
+    "CloseMenu": "اغلاق النافذة",
+    "UpdateProfile": "تحديث معلومات الحساب",
     "search": "البحث",
-    "wishList":"المفضلات",
-    "cart":"سلة المشتريات",
-    "settings":"الاعدادات"
-
-  }
-
+    "wishList": "المفضلات",
+    "cart": "سلة المشتريات",
+    "settings": "الاعدادات"
+  },
+  "authNav": {
+    "FashionFurnish": "ملابس عصرية",
+    "login": "تسجيل الدخول",
+    "register": "تسجيل جديد"
+  },
+  "login": {
+    "Login Now": "الان سجل",
+    "Email address": "البريد الالكتروني",
+    "Password": "كلمة المرور",
+    "your Email is required": "يجب ادخال بريدك الالكتروني",
+    "please enter valid email": "يجب ادخال بريد الكتروني صحيح",
+    "password is required": "يجب ادخال كلمة المرور",
+    "password should be 6 char or more": "يجب ان تكون كلمة المرور اكثر من ستة حروف",
+    "did you forget the password": "هل نسيت كلمة المرور؟",
+    "login": "سجل"
+  },
+  "mainCarrasol": {
+    "Shop Now": "تسوق الان",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus doloribus quibusdam pariatur repellendus. Assumenda, quibusdam ipsam similique aut magni, excepturi dignissimos adipisci deserunt, explicabo eius delectus recusandae quis sed esse.": "الشركة نفسها هي شركة ناجحة جدا. ومن أقل إيلاما أن يتم صدها من قبل البعض. على افتراض أن بعض الأشخاص، مثلها أو العظماء، باستثناء الأشخاص الأكثر استحقاقًا، سأشرح من تم اختياره لرفضه."
+  },
+  "categories": "الاقسام",
+  "new arrival": "الوافدين الجدد",
+  "featured products": "المنتجات المميزة",
+  "The Backstory": "القصة الخلفية",
+  "join our newsettlers": "انضم الى مستوطنينا الجدد",
+  "learn about our journy": "تعرف على رحلتنا",
+  "subscribe now": "اشترك الان",
+  "Enter Your Email address": "ادخل بريدك الالكتروني"
 
 }

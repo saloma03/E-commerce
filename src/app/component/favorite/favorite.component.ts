@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FlowbiteService } from '../../core/services/flowbite.service';
 import { CategoriesService } from '../../core/services/categories.service';
 import { Icategory } from '../../core/interfaces/icategory';
@@ -7,11 +7,13 @@ import { Iproduct } from '../../core/interfaces/iproduct';
 import { ProductComponent } from "../product/product.component";
 import { CarrasolProductComponent } from "../carrasol-product/carrasol-product.component";
 import { DropdownComponent } from "../dropdown/dropdown.component";
+import { NgxSpinnerService } from 'ngx-spinner';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-favorite',
   standalone: true,
-  imports: [ProductComponent, CarrasolProductComponent, DropdownComponent],
+  imports: [ProductComponent, CarrasolProductComponent, DropdownComponent , RouterLink],
   templateUrl: './favorite.component.html',
   styleUrl: './favorite.component.scss'
 })
@@ -21,7 +23,6 @@ export class FavoriteComponent  implements OnInit{
 
   favoriteProduct:WritableSignal<Iproduct[]> = signal<Iproduct[]>([]);
   sortedList:WritableSignal<Iproduct[]> = signal<Iproduct[]>([]);
-
   constructor(private _FlowbiteService:FlowbiteService , private _CategoriesService : CategoriesService , private _FavoriteService:FavoriteService){
 
   }
@@ -41,9 +42,28 @@ export class FavoriteComponent  implements OnInit{
     })
 
   }
+  loadFavoriteProducts(): void {
+
+    this._FavoriteService.getUserWishList().subscribe({
+      next: (res) => {
+        this.favoriteProduct.set(res.data);
+        this.sortedList.set(this.favoriteProduct()) ;
+        console.log("weeeee" , res.data);
+      },
+    });
+  }
+
+  refreshFavoriteList(): void {
+    this.loadFavoriteProducts();
+  }
+  addrefresh(): void {
+    this.loadFavoriteProducts();
+  }
+
+
 
   onFilterProducts(sortedProducts: Iproduct[]): void {
-    this.sortedList.set([...sortedProducts]); // Update the displayed products
+    this.sortedList.set([...sortedProducts]);
   }
 
 

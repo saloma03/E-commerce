@@ -52,12 +52,14 @@
             <div class="rounded-full cursor-pointer bg-blue-950 p-3"></div>
           </div>
           <div>
-            @for (star of [1,2,3,4,5].slice(0 , productDetails.ratingsAverage); track $index) {
+            @for (item of fullStars; track $index) {
               <i class="fa-solid fa-star text-yellow-300"></i>
             }
-            @if (productDetails.ratingsAverage! % 1 !== 0) {
-              <i class="fa-solid fa-star-half text-yellow-300"></i>
+            @if (hasPartialStar) {
+              <i class="fa-solid fa-star text-gray-300" [ngStyle]="{'background': partialStarGradient, '-webkit-background-clip': 'text', 'color': 'transparent'}"></i>
+
             }
+
           </div>
         </div>
 

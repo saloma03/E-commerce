@@ -12,9 +12,9 @@ export class DropdownComponent {
   @Input() mId!: string;
   @Input() buttonName!: string;
   @Input() menu!: string[];
-  @Input() p!: WritableSignal<Iproduct[]>; // Pass product list as a signal
+  @Input() p!: WritableSignal<Iproduct[]>;
 
-  @Output() filteredProducts = new EventEmitter<Iproduct[]>(); // Emit sorted products to parent
+  @Output() filteredProducts = new EventEmitter<Iproduct[]>();
 
   dropdowns: boolean = false;
 
@@ -25,14 +25,15 @@ export class DropdownComponent {
   filter(category: string): void {
     let sortedProducts: Iproduct[] = [...this.p()];
 
+
     if (category === 'Top Price') {
       sortedProducts = sortedProducts.sort((a, b) => b.price - a.price);
     } else if (category === 'Low Price') {
       sortedProducts = sortedProducts.sort((a, b) => a.price - b.price);
     } else if (category === 'By Sold') {
       sortedProducts = sortedProducts.sort((a, b) => b.sold - a.sold);
-    } else if (category == 'all') {
-      sortedProducts = [...this.p()];
+    } else if (category === 'all') {
+      sortedProducts = sortedProducts.sort((a, b) => b.sold - a.sold);
     } else {
       sortedProducts = sortedProducts.filter((item) =>
         item.category.name.includes(category)

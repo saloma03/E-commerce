@@ -2,7 +2,62 @@
 
   <div class="flex flex-col gap-2  justify-center items-center">
     <h3 class="uppercase font-bold text-3xl text-gray-900"> My WishList</h3>
-      <div class="p-5 flex flex-row  lg:justify-between gap-4 lg:bg-[#f4f4f4] text-gray-900 lg:w-full">
+      @if (sortedList().length>0) {
+        <div class="p-5 flex flex-row  lg:justify-between gap-4 lg:bg-[#f4f4f4] text-gray-900 lg:w-full">
+          <div class="lg:flex  lg:flex-row grid grid-cols-2 gap-4">
+            <app-dropdown [bId]="'dropDownCategory'" [mId]="'category'" [buttonName]="'Category'" [p]="favoriteProduct" [menu]="categoryTitles()" (filteredProducts)="onFilterProducts($event)" ></app-dropdown>
+
+            <app-dropdown [bId]="'dropdownStatus'" [mId]="'status'" [buttonName]="'Status'" [p]="favoriteProduct" [menu]="['sold out','in stock','out stock']" (filteredProducts)="onFilterProducts($event)"></app-dropdown>
+
+            <app-dropdown [bId]="'dropdownFilter'" [mId]="'filter'" [buttonName]="'Filter'" [p]="favoriteProduct" [menu]="['Top Price','Low Price','By Sold']" (filteredProducts)="onFilterProducts($event)"></app-dropdown>
+
+            <app-dropdown class="lg:hidden" [bId]="'dropDownMainFilter'" mId="'sort'" [buttonName]="'all'" [p]="favoriteProduct" [menu]="['all' , 'added recently']" (filteredProducts)="onFilterProducts($event)"></app-dropdown>
+
+
+          </div>
+          <div class="lg:flex gap-2 hidden items-center">
+              <p>sort by</p>
+
+              <app-dropdown [bId]="'dropDownMainFilter'" mId="'sort'" [buttonName]="'all'" [p]="favoriteProduct" [menu]="['all' , 'added recently']" ></app-dropdown>
+
+
+          </div>
+
+      </div>
+      }
+
+
+    <div class="grid lg:grid-cols-4 grid-cols-1">
+      @for (p of sortedList(); track $index) {
+        <app-product [product]="p" [isFromFavorite]="true" (deletedProduct)="refreshFavoriteList()" (addedProduct)="addrefresh()"></app-product>
+      }
+    </div>
+  </div>
+
+  @if(sortedList().length ==0){
+    <div class="flex flex-col justify-center items-center gap-4 w-full mt-3 py-3 px-3 bg-[#f4f4f4]">
+      <i class="fa-solid fa-heart-circle-exclamation text-gray-900 fa-5x"></i>
+      <p class="text-gray-900 font-bold uppercase">Your wishlist is empty</p>
+      <button class="uppercase bg-gray-900 text-white font-bold py-2 px-2 hover:scale-105 transition duration-150" routerLink="/shop">
+        Shop Now
+      </button>
+    </div>
+
+  }
+
+
+</div>
+<h4 class="text-gray-900 uppercase text-center font-bold text-3xl">People also love:</h4>
+<app-carrasol-product [endSlice]="9" [startSlice]="1"></app-carrasol-product>
+
+
+
+<!-- <div class="w-10/12 mx-auto p-0 my-20">
+
+  <div class="flex flex-col gap-2  justify-center items-center">
+    <h3 class="uppercase font-bold text-3xl text-gray-900"> My WishList</h3>
+    @if (sortedList().length > 0) {
+      <div class="p-5 flex flex-row  lg:justify-between gap-4 lg:bg-[#f4f4f4] text-gray-900 lg:w-full"></div>
         <div class="lg:flex  lg:flex-row grid grid-cols-2 gap-4">
           <app-dropdown [bId]="'dropDownCategory'" [mId]="'category'" [buttonName]="'Category'" [p]="favoriteProduct" [menu]="categoryTitles()" (filteredProducts)="onFilterProducts($event)" ></app-dropdown>
 
@@ -22,16 +77,32 @@
 
         </div>
 
-    </div>
+    }
+
+  </div>
 
 
     <div class="grid lg:grid-cols-4 grid-cols-1">
-      @for (p of sortedList(); track $index) {
-        <app-product [product]="p" [isFromFavorite]="true"></app-product>
+      @if (sortedList().length > 0) {
+        @for (p of sortedList(); track $index) {
+          <app-product [product]="p" [isFromFavorite]="true" (EmittedProducts)="refreshFavoriteList()"></app-product>
+        }
       }
-    </div>
-  </div>
 
+
+    </div>
+    @if(sortedList().length ==0){
+      <div class="flex flex-col justify-center items-center gap-4 w-full mt-3 py-3 px-3 bg-[#f4f4f4]">
+        <i class="fa-solid fa-heart-circle-exclamation text-gray-900 fa-5x"></i>
+        <p class="text-gray-900 font-bold uppercase">Your wishlist is empty</p>
+        <button class="uppercase bg-gray-900 text-white font-bold py-2 px-2 hover:scale-105 transition duration-150" routerLink="/shop">
+          Shop Now
+        </button>
+      </div>
+
+    }
 </div>
+
+
 <h4 class="text-gray-900 uppercase text-center font-bold text-3xl">People also love:</h4>
-<app-carrasol-product [endSlice]="9" [startSlice]="1"></app-carrasol-product>
+<app-carrasol-product [endSlice]="9" [startSlice]="1"></app-carrasol-product> -->

@@ -48,6 +48,8 @@ export class BlankNavbarComponent implements OnInit {
       next:(res)=>{
         console.log("favvvov" , res)
         this._FavoriteService.numOfFav.set(res.count);
+        this._FavoriteService.ProductFavList.set(res.data)
+
       }
     })
   }

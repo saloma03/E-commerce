@@ -14,7 +14,39 @@
     "search": "Search",
     "wishList":"WishList",
     "cart":"Cart",
-    "settings":"Settings"
-  }
+    "settings":"Settings",
+    "login":"login",
+    "register":"register"
+  },
+  "authNav":{
+    "FashionFurnish": "FashionFurnish",
+    "login":"login",
+    "register":"register"
+  },
+  "login":{
+    "Login Now": "Login Now",
+    "Email address": "Email address",
+    "Password": "Password",
+    "your Email is required": "your Email is required",
+    "please enter valid email": "please enter valid email",
+    "password is required": "password is required",
+    "password should be 6 char or more": "password should be 6 char or more",
+    "did you forget the password": "did you forget the password?",
+    "login": "login"
+
+  },
+  "mainCarrasol":{
+    "Shop Now": "Shop Now",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus doloribus quibusdam pariatur repellendus. Assumenda, quibusdam ipsam similique aut magni, excepturi dignissimos adipisci deserunt, explicabo eius delectus recusandae quis sed esse.":"Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>Minus doloribus quibusdam pariatur repellendus. Assumenda, quibusdam ipsam similique aut magni, excepturi dignissimos adipisci deserunt,<br> explicabo eius delectus recusandae quis sed esse."
+  },
+  "categories": "Categories",
+  "new arrival": "New Arrival",
+  "featured products": "Featured Products",
+  "The Backstory": "The Backstory",
+  "join our newsettlers": "Join Our New Settlers",
+  "learn about our journy": "Learn About Our Journey",
+  "subscribe now": "Subscribe Now",
+  "Enter Your Email address": "Enter Your Email Address"
+
 
 }

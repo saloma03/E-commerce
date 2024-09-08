@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { Component, inject } from '@angular/core';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,7 +11,7 @@ import { finalize } from 'rxjs';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule ,NgClass , RouterLink],
+  imports: [ReactiveFormsModule ,NgClass , TranslateModule,  RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

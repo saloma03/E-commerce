@@ -1,11 +1,12 @@
 import { Component, inject, WritableSignal, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FlowbiteService } from '../../core/services/flowbite.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth-navbar',
   standalone: true,
-  imports: [RouterLink,RouterLinkActive],
+  imports: [RouterLink,RouterLinkActive , TranslateModule],
   templateUrl: './auth-navbar.component.html',
   styleUrl: './auth-navbar.component.scss'
 })

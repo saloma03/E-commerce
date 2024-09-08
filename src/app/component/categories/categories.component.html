@@ -1,0 +1,24 @@
+<div class="w-10/12 mx-auto p-0 my-20">
+  <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3">
+    @for (category of categoriesList; track $index)
+    {
+      <div class="relative group overflow-hidden cursor-pointer">
+        <img
+        [src]="category.image"
+        class="rounded-lg w-full h-72 object-contain"
+        [alt]="category.slug"
+      />
+
+        <div class="absolute top-full group-hover:top-0 transition-all duration-300  left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.7)] ">
+          <div class="flex flex-col gap-10 justify-center items-center text-white">
+            <h3 class="text-lg font-bold translate-y-1/2">{{category.name}}</h3 >
+              <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+      </div>
+
+
+
+    }
+  </div>
+</div>
