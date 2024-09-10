@@ -1,12 +1,14 @@
 import { Routes } from '@angular/router';
 import { AuthComponent } from './layouts/auth-layout/auth.component';
 import { BlankComponent } from './layouts/blank-layout/blank.component';
+import { authenticationGGuard } from './core/guards/authentication-g.guard';
+import { logoutGuard } from './core/guards/logout.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: BlankComponent,
-    canActivate: [() => import('./core/guards/authentication-g.guard').then(m => m.authenticationGGuard)],
+    canActivate: [authenticationGGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full', title: 'home' },
       {
@@ -64,7 +66,7 @@ export const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
-    // canActivate: [() => import('./core/guards/logout.guard').then(m => m.logoutGuard)],
+    canActivate: [logoutGuard],
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full', title: 'login' },
       {

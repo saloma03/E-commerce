@@ -20,7 +20,9 @@
         }
         @else {
           <i class="fa-solid fa-cart-plus" (click)="addToCart(product._id)"></i>
-          <i class="fa-solid fa-heart "[ngClass]="{'text-red-500': isProductInFavorites() , 'text-gray-200' : !isProductInFavorites()}" (click)="isProductInFavorites() ? removeFromFavorite(product._id) : addToFavorite(product._id)"></i>
+          <i class="fa-solid fa-heart" [ngClass]="{'text-red-500': isProductInFavorites(), 'text-gray-200': !isProductInFavorites()}"
+          (click)="isProductInFavorites() ? removeFromFavorite(product._id) : addToFavorite(product._id)">
+      </i>
 
         }
 

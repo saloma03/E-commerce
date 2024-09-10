@@ -31,12 +31,25 @@ export class ProductComponent {
   @Output() addedProduct = new EventEmitter<void>();
 
 
-  productList : Signal<Iproduct[]> = computed(()=>this._FavoriteService.ProductFavList());
 
   isProductInFavorites(): boolean {
-    return this.productList().includes(this.product);
+    // let x = this._FavoriteService.ProductFavList().some((p) => p._id === this.product._id);
+    // console.log(x);
+    // console.log("product to be compare" ,this.product)
+    return this._FavoriteService.ProductFavList().some((p) => p._id === this.product._id);
   }
 
+
+  ngOnInit(): void {
+
+    this._FavoriteService.getUserWishList().subscribe({
+      next:(res)=>{
+        console.log("favvvov" , res)
+        this._FavoriteService.ProductFavList.set(res.data);
+        console.log("list of products ",res.data);
+      }
+    })
+  }
 
 
   addToCart(id:string):void{
@@ -55,7 +68,7 @@ export class ProductComponent {
   addToFavorite(id:string):void{
       this._FavoriteService.addToWishList(id).subscribe({
         next:(res)=>{
-          console.log("aaaadddd",res)
+          // console.log("aaaadddd",res)
           const updatedList = [...this._FavoriteService.ProductFavList(), this.product];
           this._FavoriteService.ProductFavList.set(updatedList);
             this.addedProduct.emit();
@@ -83,7 +96,7 @@ export class ProductComponent {
           next: (res) => {
             const updatedList = this._FavoriteService.ProductFavList().filter(id => id !== this.product);
             this._FavoriteService.ProductFavList.set(updatedList);
-            console.log(res)
+            // console.log(res);
             this._FavoriteService.numOfFav.set(res.data.length)
             this.deletedProduct.emit();
             this._ToastrService.success(res.message);

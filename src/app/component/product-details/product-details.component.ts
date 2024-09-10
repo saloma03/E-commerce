@@ -1,5 +1,5 @@
-import { CurrencyPipe, NgClass, NgStyle } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { CurrencyPipe, isPlatformBrowser, NgClass, NgStyle } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -24,17 +24,18 @@ export class ProductDetailsComponent implements OnInit{
   private readonly _CartService = inject(CartService);
   private readonly _ToastrService = inject(ToastrService);
 
-  favorite : boolean = false;
   productDetails: Iproduct | null = null;
   getMoreDetails : boolean = false;
   getReviews : boolean = true;
   isloading:boolean = false;
-
+  private readonly _PLATFORM_ID = inject(PLATFORM_ID)
   fullStars: number[] = [];
   emptyStars: number[] = [];
   hasPartialStar = false;
   partialStarGradient = '';
+  slidesPerView: number = 4;
 
+  isProductInFavorites!: boolean;
 
 
   ngOnInit(): void {
@@ -46,6 +47,7 @@ export class ProductDetailsComponent implements OnInit{
           next: (res)=>{
             this.productDetails = res.data;
             // console.log(this.productDetails)
+            this.isProductInFavorites = this._FavoriteService.ProductFavList().some((p) => p._id === this.productDetails!._id);
             if (this.productDetails && this.productDetails.ratingsAverage) {
               const rating = this.productDetails.ratingsAverage;
               const fullStarCount = Math.floor(rating);
@@ -66,6 +68,11 @@ export class ProductDetailsComponent implements OnInit{
           }
         })
       })
+      if (isPlatformBrowser(this._PLATFORM_ID)) {
+        window.addEventListener('resize', this.updateSlidesPerView.bind(this));  // Listen for resize events
+        this.updateSlidesPerView();  // Set slidesPerView based on initial screen size
+      }
+
 
   }
 
@@ -87,19 +94,42 @@ export class ProductDetailsComponent implements OnInit{
   }
 
   addToFavorite(id:string):void{
-    if(this.favorite){
-      this._FavoriteService.addToWishList(id).subscribe({
-        next:(res)=>{
-          this._FavoriteService.numOfFav.set(res.data.length)
-          this._ToastrService.success(res.message);
+    this._FavoriteService.addToWishList(id).subscribe({
+      next:(res)=>{
+        this._FavoriteService.numOfFav.set(res.data.length)
+        this._ToastrService.success(res.message);
+        this.isProductInFavorites = true;
 
-          // console.log(res)
-        }
-      })
-    }
+        // console.log(res)
+      }
+    })
 
   }
 
+  removeFavorite(id:string):void{
+    this._FavoriteService.deleteFromWishList(id).subscribe({
+      next:(res)=>{
+        this._ToastrService.show(res.message);
+        this.isProductInFavorites = false;
+      }
+    })
+  }
+
+  private updateSlidesPerView(): void {
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      const screenWidth = window.innerWidth;
+
+      if (screenWidth >= 1200) {
+        this.slidesPerView = 4;  // 4 slides for large screens
+      } else if (screenWidth >= 992) {
+        this.slidesPerView = 3;  // 3 slides for medium screens
+      } else if (screenWidth >= 768) {
+        this.slidesPerView = 2;  // 2 slides for small screens
+      } else {
+        this.slidesPerView = 1;  // 1 slide for very small screens
+      }
+    }
+  }
 
 }
 

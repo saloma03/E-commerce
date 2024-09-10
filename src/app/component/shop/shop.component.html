@@ -15,14 +15,6 @@
   <div>
     <div class="p-5 mt-5 flex justify-between gap-x-4 bg-[#f4f4f4] text-gray-900 w-full">
       <div class="flex gap-x-4">
-        <app-dropdown
-          [bId]="'dropdownStatus'"
-          [mId]="'statusDropdown'"
-          [buttonName]="'status'"
-          [menu]="['on stock', 'on hold', 'sold out']"
-          [p]="filteredProductList"
-          (filteredProducts)="onFilterProducts($event)"
-        ></app-dropdown>
 
         <app-dropdown
           [bId]="'dropdownCategory'"

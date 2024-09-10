@@ -49,7 +49,7 @@ export class BlankNavbarComponent implements OnInit {
         console.log("favvvov" , res)
         this._FavoriteService.numOfFav.set(res.count);
         this._FavoriteService.ProductFavList.set(res.data)
-
+        console.log('pleaaaseeee' ,this._FavoriteService.ProductFavList())
       }
     })
   }

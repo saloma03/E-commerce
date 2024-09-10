@@ -1,47 +1,46 @@
-@if(productDetails){
-  <div class="w-10/12 mx-auto my-20">
-    <div class="grid lg:grid-cols-2 md:grid-cols-1 gap-5 min-h-screen">
-      <div class="h-full">
-        <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
-        thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
-        @for (image of productDetails.images; track $index) {
-          <swiper-slide>
-            <img [src]="image" [alt]="productDetails.title">
-          </swiper-slide>
-        }
+@if(productDetails) {
+  <div class="w-full max-w-screen-xl px-2 mx-auto my-20">
+    <div class="grid lg:grid-cols-2 md:grid-cols-1 gap-5">
+      <div class="h-full  overflow-hidden">
+        <swiper-container
+          style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+          class="mySwiper"
+          thumbs-swiper=".mySwiper2"
+          space-between="10"
+          navigation="true">
+          @for (image of productDetails.images; track $index) {
+            <swiper-slide>
+              <img [src]="image" [alt]="productDetails.title">
+            </swiper-slide>
+          }
         </swiper-container>
 
-        <swiper-container class="mySwiper2" space-between="10" slides-per-view="4" free-mode="true"
+        <swiper-container
+          class="mySwiper2"
+          space-between="10"
+          slides-per-view="4"
+          free-mode="true"
           watch-slides-progress="true">
           @for (image of productDetails.images; track $index) {
             <swiper-slide>
               <img [src]="image" [alt]="productDetails.title">
             </swiper-slide>
           }
-
         </swiper-container>
       </div>
 
       <div class="text-gray-900 h-full flex flex-col justify-center">
         <div>
           <h3 class="uppercase font-bold py-2">{{productDetails.title}}</h3>
-          <div class="fles justify-between py-2">
-              <p>{{productDetails.price | currency:'EUR'}}</p>
-              <p class="text-gray-400"> size guide </p>
+          <div class="flex justify-between py-2">
+            <p>{{productDetails.price | currency:'EUR'}}</p>
+            <p class="text-gray-400"> size guide </p>
           </div>
-          <div class="flex gap-2 py-2">
-            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
-              Xs
-            </div>
-            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
-              S
-            </div>
-            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
-              M
-            </div>
-            <div class="py-3 px-5 bg-gray-200 cursor-pointer">
-              L
-            </div>
+          <div class="flex gap-2 py-2 flex-wrap">
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">Xs</div>
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">S</div>
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">M</div>
+            <div class="py-3 px-5 bg-gray-200 cursor-pointer">L</div>
           </div>
         </div>
 
@@ -57,9 +56,7 @@
             }
             @if (hasPartialStar) {
               <i class="fa-solid fa-star text-gray-300" [ngStyle]="{'background': partialStarGradient, '-webkit-background-clip': 'text', 'color': 'transparent'}"></i>
-
             }
-
           </div>
         </div>
 
@@ -73,7 +70,7 @@
         </div>
 
         <div class="flex justify-center items-baseline gap-5">
-          <i class="fa-solid fa-heart cursor-pointer" [ngClass]="{'text-gray-400': !favorite , 'text-red-700': favorite}" (click)="favorite = !favorite" (click)="addToFavorite(productDetails._id)"></i>
+          <i class="fa-solid fa-heart cursor-pointer" [ngClass]="{'text-gray-400': !isProductInFavorites, 'text-red-700': isProductInFavorites}" (click)="isProductInFavorites ? removeFavorite(productDetails._id) : addToFavorite(productDetails._id)"></i>
           <p class="text-center">add to favorite</p>
         </div>
 
@@ -128,7 +125,7 @@
                 </li>
               </ul>
             </li>
-            <li class="p-2 text-gray-500 border-2 border-gray-200 rounded-lg my-2" >
+            <li class="p-2 text-gray-500 border-2 border-gray-200 rounded-lg my-2">
               <div class="flex flex-col gap-2 mb-2">
                 <i class="fa-solid fa-user"></i>
                 <input type="text" placeholder="add review" class="rounded-2xl w-full focus:outline-none focus:border-0">
@@ -141,13 +138,9 @@
         </div>
       </div>
     </div>
-
-
-
-
   </div>
-
 }
+
 
 
 <h4 class="font-bold text-gray-900 text-3xl uppercase text-center"> you might like :</h4>
